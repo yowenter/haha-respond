@@ -11,6 +11,8 @@ Welcome to haha_respond's documentation!
    :caption: Contents:
 
    api
+   rest_api
+
 
 
 
