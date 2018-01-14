@@ -33,17 +33,18 @@ class Choice(models.Model):
 
 class Exam(models.Model):
     exam_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
+    name = models.CharField(max_length=64)
 
     pub_date = models.DateTimeField()
-    # choices=tuple(["draft", "live", "closed"])
+    # state can be one of ["draft", "live", "closed"]
     state = models.CharField(max_length=64)
 
     created_at = models.DateTimeField(auto_created=True)
 
 
 class ExamQuestion(models.Model):
-    exam = models.ForeignKey(Exam, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    exam = models.ForeignKey(Exam)
+    question = models.ForeignKey(Question)
 
     created_at = models.DateTimeField(auto_created=True)
 
@@ -52,5 +53,6 @@ class UserExam(models.Model):
     exam = models.ForeignKey(Exam)
     user = models.ForeignKey(User)
     choice = models.ForeignKey(Choice)
+    question = models.ForeignKey(Question)
 
     created_at = models.DateTimeField(auto_created=True)
