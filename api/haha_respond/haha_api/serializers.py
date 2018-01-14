@@ -1,5 +1,5 @@
 from rest_framework import serializers, exceptions
-from .models import User
+from .models import User, Question
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,10 +18,20 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
         return user
 
-
     def is_valid(self, raise_exception=False):
         super(UserSerializer, self).is_valid()
         if not self.data.get('email', '').endswith('daocloud.io'):
             raise exceptions.ValidationError(detail="Email should endswith daocloud.io ", code=400)
 
         return True
+
+
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = ('question_id', 'question_text')
+
+
+class ExamSerializer(serializers.Serializer):
+    exam_id = serializers.CharField(read_only=True)
+    name = serializers.CharField(required=True)
