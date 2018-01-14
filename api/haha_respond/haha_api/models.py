@@ -14,7 +14,7 @@ class Question(models.Model):
     difficulty = models.IntegerField()
     category = models.CharField(max_length=64)
 
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_created=True, auto_now=True)
 
     def __unicode__(self):
         return self.question_text
@@ -25,7 +25,7 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=200)
     is_right = models.BooleanField()
 
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_created=True, auto_now=True)
 
     def __unicode__(self):
         return self.choice_text
@@ -39,14 +39,14 @@ class Exam(models.Model):
     # state can be one of ["draft", "live", "closed"]
     state = models.CharField(max_length=64)
 
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_created=True, auto_now=True)
 
 
 class ExamQuestion(models.Model):
     exam = models.ForeignKey(Exam)
     question = models.ForeignKey(Question)
 
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_created=True, auto_now=True)
 
 
 class Vote(models.Model):
@@ -56,4 +56,4 @@ class Vote(models.Model):
     choice = models.ForeignKey(Choice)
     question = models.ForeignKey(Question)
 
-    created_at = models.DateTimeField(auto_created=True)
+    created_at = models.DateTimeField(auto_created=True, auto_now=True)
