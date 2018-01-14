@@ -12,7 +12,7 @@ from rest_framework import status
 from .models import User
 import requests
 
-from .models import Exam, Question
+from .models import Exam, Question, Vote
 from haha_api.serializers import UserSerializer, ExamSerializer
 
 
@@ -26,6 +26,27 @@ def ping(*args, **kwargs):
 class ExamViewSet(viewsets.ModelViewSet):
     queryset = Exam.objects.all().order_by('name')
     serializer_class = ExamSerializer
+
+
+class VoteSerializer(serializers.Serializer):
+    vote_id = serializers.CharField(read_only=True)
+    exam = serializers.CharField(required=True)
+    user = serializers.CharField(required=True)
+    choice = serializers.CharField(required=True)
+    question = serializers.CharField(required=True)
+
+
+class VoteApiView(APIView):
+    def get(self, request, format=None):
+        vs = Vote.objects.all()
+        serializer = VoteSerializer(vs, many=True)
+        return Response(serializer)
+
+    def post(self, request, format=None):
+        serializer = VoteSerializer(request.data)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['POST'])
