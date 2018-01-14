@@ -1,0 +1,10 @@
+<div class="register">
+  <p class="top-text">请输入昵称及公司邮箱进行注册</p>
+  <van-cell-group>
+    <van-field v-model="username" label="名称" icon="clear" placeholder="请输入用户名" required @click-icon="username = ''" />
+
+    <van-field v-model="email" label="公司邮箱" icon="clear" placeholder="请输入公司邮箱" required @click-icon="email = ''" />
+  </van-cell-group>
+
+  <van-button size="large" type="primary" class="sub-button" @click="submit">提交</van-button>
+</div>
