@@ -13,7 +13,7 @@ from .models import User
 import requests
 
 from .models import Exam, Question, Vote
-from haha_api.serializers import UserSerializer
+from haha_api.serializers import UserSerializer, ExamSerializer
 
 
 # Create your views here.
@@ -21,17 +21,6 @@ from haha_api.serializers import UserSerializer
 
 def ping(*args, **kwargs):
     return HttpResponse("pong")
-
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = ('question_id', 'question_text')
-
-
-class ExamSerializer(serializers.Serializer):
-    exam_id = serializers.CharField(read_only=True)
-    name = serializers.CharField(required=True)
 
 
 class ExamViewSet(viewsets.ModelViewSet):
@@ -80,5 +69,7 @@ def signup(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        data = serializer.data
+        data.pop("password")
+        return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
