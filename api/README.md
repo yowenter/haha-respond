@@ -17,7 +17,8 @@
 
 ## MIGRATE DATABASE
 
-- `python manage.py makemigrations`
+- `python manage.py makemigrations --empty haha_api`
+- `python manage.py makemigrations    `
 - `python manage.py migrate`
 
 
