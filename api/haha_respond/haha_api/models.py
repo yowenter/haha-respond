@@ -50,6 +50,7 @@ class ExamQuestion(models.Model):
 
 
 class Vote(models.Model):
+    vote_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
     exam = models.ForeignKey(Exam)
     user = models.ForeignKey(User)
     choice = models.ForeignKey(Choice)
