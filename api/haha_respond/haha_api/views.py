@@ -22,8 +22,6 @@ class ExamSerializer(serializers.ModelSerializer):
         fields = ('exam_id', 'name')
 
 
-class ExamApi(APIView):
-    def get(self, request, format=None):
-        exams = Exam.objects.all()
-        serializer = ExamSerializer(exams, many=True)
-        return Response(serializer)
+class ExamViewSet(viewsets.ModelViewSet):
+    queryset = Exam.objects.all().order_by('name')
+    serializer_class = ExamSerializer
