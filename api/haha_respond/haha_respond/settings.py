@@ -74,11 +74,11 @@ WSGI_APPLICATION = 'haha_respond.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': "haha_respond",
-        'PASSWORD': 'password',
-        'USER': 'root',
-        'HOST': '127.0.0.1'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': "db.sqlite3",
+        # 'PASSWORD': 'password',
+        # 'USER': 'root',
+        # 'HOST': '127.0.0.1'
     }
 }
 
