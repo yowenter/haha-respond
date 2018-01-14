@@ -18,7 +18,7 @@ help:
 api-rst:
 
 	rm -rf source/api-doc
-	sphinx-apidoc -o ./source/api-doc haha_respond
+	sphinx-apidoc -o ./source/api-doc ../haha_respond
 
 
 
