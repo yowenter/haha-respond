@@ -23,5 +23,6 @@ router = routers.DefaultRouter()
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^admin/', admin.site.urls),
-    url(r'^ping', views.ping)
+    url(r'^ping', views.ping),
+    url(r'^user', views.signup)
 ]
