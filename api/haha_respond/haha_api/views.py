@@ -13,7 +13,7 @@ from .models import User
 import requests
 
 from .models import Exam, Question, Vote
-from haha_api.serializers import UserSerializer, ExamSerializer
+from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer, QuestionSerializer
 
 
 # Create your views here.
@@ -28,25 +28,25 @@ class ExamViewSet(viewsets.ModelViewSet):
     serializer_class = ExamSerializer
 
 
-class VoteSerializer(serializers.Serializer):
-    vote_id = serializers.CharField(read_only=True)
-    exam = serializers.CharField(required=True)
-    user = serializers.CharField(required=True)
-    choice = serializers.CharField(required=True)
-    question = serializers.CharField(required=True)
-
-
 class VoteApiView(APIView):
     def get(self, request, format=None):
         vs = Vote.objects.all()
         serializer = VoteSerializer(vs, many=True)
-        return Response(serializer)
+        return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = VoteSerializer(request.data)
+        serializer = VoteSerializer(data=request.data)
         if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+
+
+class QuestionApiView(APIView):
+    def get(self, request, format=None):
+        questions = Question.objects.all()
+        serializer = QuestionSerializer(questions, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])

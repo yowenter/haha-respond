@@ -1,5 +1,5 @@
 from rest_framework import serializers, exceptions
-from .models import User, Question
+from .models import User, Question, Vote
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,3 +35,25 @@ class QuestionSerializer(serializers.ModelSerializer):
 class ExamSerializer(serializers.Serializer):
     exam_id = serializers.CharField(read_only=True)
     name = serializers.CharField(required=True)
+
+
+class VoteSerializer(serializers.Serializer):
+    vote_id = serializers.CharField(read_only=True)
+    exam = serializers.CharField(required=True)
+    user = serializers.CharField(required=True)
+    choice = serializers.CharField(required=True)
+    question = serializers.CharField(required=True)
+
+    def create(self, validated_data):
+        vote = Vote(
+            exam_id=validated_data['exam'],
+            user_id=validated_data['user'],
+            choice_id=validated_data['choice'],
+            question_id=validated_data['question']
+        )
+        vote.save()
+        return vote
+
+    def is_valid(self, raise_exception=False):
+        super(VoteSerializer, self).is_valid()
+        return True
