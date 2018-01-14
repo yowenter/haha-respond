@@ -49,7 +49,7 @@ class ExamQuestion(models.Model):
     created_at = models.DateTimeField(auto_created=True)
 
 
-class UserExam(models.Model):
+class Vote(models.Model):
     exam = models.ForeignKey(Exam)
     user = models.ForeignKey(User)
     choice = models.ForeignKey(Choice)
