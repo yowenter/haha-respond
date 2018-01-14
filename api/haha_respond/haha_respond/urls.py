@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^api/user', views.signup),
     url(r'^publish-question$', views.publish_question),
     url(r'^api/votes', views.VoteApiView.as_view()),
-    url(r'^api/questions', views.QuestionApiView.as_view())
+    url(r'^api/questions', views.QuestionApiView.as_view()),
+    url(r'^api/rank', views.rank)
 ]

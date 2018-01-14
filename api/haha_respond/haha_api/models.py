@@ -55,5 +55,6 @@ class Vote(models.Model):
     user = models.ForeignKey(User)
     choice = models.ForeignKey(Choice)
     question = models.ForeignKey(Question)
+    score = models.IntegerField()
 
     created_at = models.DateTimeField(auto_created=True)

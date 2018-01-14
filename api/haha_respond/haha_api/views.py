@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
+from collections import defaultdict
 from rest_framework import serializers, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -29,11 +30,6 @@ class ExamViewSet(viewsets.ModelViewSet):
 
 
 class VoteApiView(APIView):
-    def get(self, request, format=None):
-        vs = Vote.objects.all()
-        serializer = VoteSerializer(vs, many=True)
-        return Response(serializer.data)
-
     def post(self, request, format=None):
         serializer = VoteSerializer(data=request.data)
         if serializer.is_valid():
@@ -73,3 +69,14 @@ def signup(request):
         data.pop("password")
         return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def rank(request):
+    vs = Vote.objects.filter(exam=request.data)
+    grouped_user_score = defaultdict(list)
+    for v in vs:
+        grouped_user_score[v.user].append(v.score)
+    user_score_map = {k: sum(v) for k, v in grouped_user_score.iteritems()}
+    result = sorted(user_score_map.iteritems(), key=lambda d: d[1], reverse=True)
+    return Response(json.dumps(result))

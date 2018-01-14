@@ -43,13 +43,15 @@ class VoteSerializer(serializers.Serializer):
     user = serializers.CharField(required=True)
     choice = serializers.CharField(required=True)
     question = serializers.CharField(required=True)
+    score = serializers.IntegerField(required=True)
 
     def create(self, validated_data):
         vote = Vote(
             exam_id=validated_data['exam'],
             user_id=validated_data['user'],
             choice_id=validated_data['choice'],
-            question_id=validated_data['question']
+            question_id=validated_data['question'],
+            score=validated_data['score']
         )
         vote.save()
         return vote
