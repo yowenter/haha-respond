@@ -17,5 +17,17 @@ class ChoiceAdmin(admin.ModelAdmin):
     list_display = ['choice_text', 'question', 'is_right']
 
 
+class ExamAdmin(admin.ModelAdmin):
+    list_display = ['exam_id', 'state', 'pub_date']
+
+
+class ExamQuestionAdmin(admin.ModelAdmin):
+    list_display = ['exam_id', 'question']
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Choice, ChoiceAdmin)
+admin.site.register(Exam, ExamAdmin)
+admin.site.register(ExamQuestion, ExamQuestionAdmin)
+
+
