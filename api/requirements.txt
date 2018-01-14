@@ -1,3 +1,4 @@
 django!=2
 MySQL-python
 djangorestframework
+requests

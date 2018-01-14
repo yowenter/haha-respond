@@ -18,8 +18,7 @@ from flask_socketio import leave_room
 class StreamServerConfig(object):
     DEBUG = bool(os.getenv('DEBUG'))
     ROOM_KEY = os.getenv('ROOM_KEY')
-    REDIS_URL = os.getenv('REDIS_URL', 'redis://dce_controller_1:6379/0')
-    SOCKETIO_CHANNEL = os.getenv('SOCKETIO_CHANNEL', 'dce-stream')
+    SOCKETIO_CHANNEL = os.getenv('SOCKETIO_CHANNEL', 'haha-stream')
     CORS_MAX_AGE = 86400
 
 
