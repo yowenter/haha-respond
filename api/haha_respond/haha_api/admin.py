@@ -23,8 +23,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
 #
 
-
-from .views import publish_question
+publish_question = lambda: None
+#todo
 
 
 class ExamQuestionListInline(TabularInline):
