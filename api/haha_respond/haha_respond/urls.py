@@ -17,20 +17,22 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from haha_api import views
 from rest_framework import serializers, viewsets, routers
+from django.conf import settings
+from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 # router.register('api/exams', views.ExamViewSet)
 
 urlpatterns = [
-    url(r'^api', include(router.urls)),
-    url(r'^api/admin/', admin.site.urls),
-    url(r'^api/ping', views.ping),
-    url(r'^api/user', views.signup),
-    url(r'^api/join', views.join_room),
-    # url(r'^publish-question$', views.publish_question),
-    url(r'^api/votes', views.VoteApiView.as_view()),
-    url(r'^api/questions', views.QuestionApiView.as_view()),
-    url(r'^api/exam/(.*)/report', views.report),
-    url(r'^api/exams', views.ExamApiView.as_view()),
-    url(r'^api/exam', views.current_exam)
-]
+                  url(r'^api', include(router.urls)),
+                  url(r'^api/admin/', admin.site.urls),
+                  url(r'^api/ping', views.ping),
+                  url(r'^api/user', views.signup),
+                  url(r'^api/join', views.join_room),
+                  # url(r'^publish-question$', views.publish_question),
+                  url(r'^api/votes', views.VoteApiView.as_view()),
+                  url(r'^api/questions', views.QuestionApiView.as_view()),
+                  url(r'^api/exam/(.*)/report', views.report),
+                  url(r'^api/exams', views.ExamApiView.as_view()),
+                  url(r'^api/exam', views.current_exam)
+              ] + static('^api', document_root=settings.STATIC_ROOT)
