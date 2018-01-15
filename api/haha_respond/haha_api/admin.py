@@ -22,8 +22,8 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 #
-
-publish_question = lambda: None
+from haha_api.views import QuestionApiView
+publish_question = QuestionApiView.post
 #todo
 
 
