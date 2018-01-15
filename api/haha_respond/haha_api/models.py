@@ -41,10 +41,11 @@ class Exam(models.Model):
     exam_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=64)
     room_id = models.CharField(max_length=64, default=_generate_random_room)
+    current_question_id = models.CharField(max_length=64, blank=True)
 
     pub_date = models.DateTimeField()
     # state can be one of ["draft", "live", "closed"]
-    state = models.CharField(max_length=64)
+    state = models.CharField(max_length=64, default="draft")
 
     created_at = models.DateTimeField(auto_created=True, auto_now=True)
 
