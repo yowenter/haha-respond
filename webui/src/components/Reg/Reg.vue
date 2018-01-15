@@ -46,7 +46,7 @@ export default {
       if (valid) {
         // reg api
         this.loading = true;
-        api.register(this.name, this.email).then(res => {
+        api.register(this.username, this.email).then(res => {
           this.loading = false;
           console.log('success', res);
         }, err => {
