@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^api/votes', views.VoteApiView.as_view()),
     url(r'^api/questions', views.QuestionApiView.as_view()),
     url(r'^api/exam/(.*)/report', views.report),
-    url(r'^api/exams', views.ExamApiView.as_view())
+    url(r'^api/exams', views.ExamApiView.as_view()),
+    url(r'^api/exam', views.current_exam)
 ]

@@ -81,6 +81,37 @@ def join_room(request):
 
 
 @api_view(['GET'])
+def current_exam(request):
+    return Response({
+        "room_id": "1234",
+        "state": "live",
+        "question": {
+            "question_id": "1234",
+            "question_text": "生命宇宙及一切的答案是什么？",
+            "category": "Life",
+            "difficulty": 1,
+            "choices": [
+                {
+                    "choice_id": "1234",
+                    "choice_text": "42",
+                    "is_right": True
+                },
+                {
+                    "choice_id": "1234",
+                    "choice_text": "41",
+                    "is_right": False
+                },
+                {
+                    "choice_id": "1234",
+                    "choice_text": "24",
+                    "is_right": False
+                }
+            ]
+        }
+    }, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
 def report(request):
     vs = Vote.objects.filter(exam=request.data)
     grouped_user_score = defaultdict(list)
