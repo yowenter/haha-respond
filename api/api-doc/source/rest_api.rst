@@ -39,6 +39,7 @@ Signup
 .. http:get:: /api/exam
 
     :jsonparam string email: TAOG@DAOCLOUD.IO
+    :jsonparam string room: 1234
 
 
 .. sourcecode:: http

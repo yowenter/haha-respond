@@ -36,7 +36,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ('question_id', 'question_text')
+        fields = ('question_id', 'question_text', 'category', 'difficulty')
 
 
 class ChoiceSerializer(serializers.ModelSerializer):
@@ -50,7 +50,6 @@ class ExamSerializer(serializers.Serializer):
     name = serializers.CharField(required=True)
     state = serializers.CharField(required=True)
     current_question_id = serializers.CharField(required=True)
-
 
 
 class VoteSerializer(serializers.Serializer):
