@@ -7,5 +7,5 @@
     <van-field v-model="email" label="公司邮箱" icon="clear" placeholder="请输入公司邮箱" required @click-icon="email = ''" />
   </van-cell-group>
 
-  <van-button size="large" type="primary" class="sub-button" @click="submit">提交</van-button>
+  <van-button size="large" type="primary" class="sub-button" @click="submit" :loading="loading" :disabled="loading">提交</van-button>
 </div>

@@ -10,6 +10,7 @@ export default {
     return {
       username: '',
       email: '',
+      loading: false,
     };
   },
   methods: {
@@ -44,9 +45,12 @@ export default {
       const valid = this.checkValid();
       if (valid) {
         // reg api
+        this.loading = true;
         api.register(this.name, this.email).then(res => {
+          this.loading = false;
           console.log('success', res);
         }, err => {
+          this.loading = false;
           console.error(err);
         });
       }
