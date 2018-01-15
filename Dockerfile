@@ -3,6 +3,7 @@ FROM python:2.7-alpine
 
 MAINTAINER TAOG
 
+RUN apk add --update alpine-sdk
 RUN apk add --update \
   ca-certificates gcc musl-dev nginx supervisor \
   && rm -rf /var/cache/apk/* \
