@@ -82,6 +82,23 @@ Signup
 
     HTTP/1.1 200 OK
 
+.. http:post:: /api/exam/<exam_id>/report
+
+
+
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+
+    [
+        {
+            "email":"TAOG@daocloud.io",
+            "total_score":"123",
+            "right_question_count":10
+        }
+
+    ]
+
 
 Question 推送消息
 ----------------------
