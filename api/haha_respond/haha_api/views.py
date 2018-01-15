@@ -55,6 +55,8 @@ class QuestionApiView(APIView):
         try:
             data['event'] = request.data['event']
             question = Question.objects.filter(pk=request.data['question_id'])
+            choices = Choice.objects.filter(question__id=request.data['question_id'])
+            question['choices'] = choices
             data['data'] = question
             data['room'] = request.data['exam_id']
             r = requests.post('http://localhost:3100/event', json=data)
