@@ -22,6 +22,7 @@ class Question(models.Model):
 
 
 class Choice(models.Model):
+    choice_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     is_right = models.BooleanField()
@@ -61,6 +62,14 @@ class Vote(models.Model):
     email = models.CharField(max_length=64)
     choice_id = models.CharField(max_length=64)
     question_id = models.CharField(max_length=64)
-    score = models.IntegerField(max_length=64)
+    score = models.IntegerField()
+
+    created_at = models.DateTimeField(auto_created=True, auto_now=True)
+
+
+class UserExam(models.Model):
+    uuid = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
+    exam = models.ForeignKey(Exam)
+    user = models.ForeignKey(User)
 
     created_at = models.DateTimeField(auto_created=True, auto_now=True)

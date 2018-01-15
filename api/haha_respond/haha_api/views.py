@@ -19,6 +19,10 @@ from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer,
 
 # Create your views here.
 
+def request_user_wrapper(*args):
+    pass
+
+
 
 def ping(*args, **kwargs):
     return HttpResponse("pong")
@@ -71,6 +75,7 @@ def signup(request):
         # data.pop("password")
         return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 @api_view(['POST'])

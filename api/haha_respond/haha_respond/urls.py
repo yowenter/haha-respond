@@ -24,15 +24,15 @@ router = routers.DefaultRouter()
 # router.register('api/exams', views.ExamViewSet)
 
 urlpatterns = [
-                  url(r'^api', include(router.urls)),
-                  url(r'^api/admin/', admin.site.urls),
-                  url(r'^api/ping', views.ping),
-                  url(r'^api/user', views.signup),
-                  url(r'^api/join', views.join_room),
-                  # url(r'^publish-question$', views.publish_question),
-                  url(r'^api/votes', views.VoteApiView.as_view()),
-                  url(r'^api/questions', views.QuestionApiView.as_view()),
-                  url(r'^api/exam/(.*)/report', views.report),
-                  url(r'^api/exams', views.ExamApiView.as_view()),
-                  url(r'^api/exam', views.current_exam)
-              ] + static('^api', document_root=settings.STATIC_ROOT)
+    url(r'^api', include(router.urls)),
+    url(r'^api/admin/', admin.site.urls),
+    url(r'^api/ping', views.ping),
+    url(r'^api/user', views.signup),
+    url(r'^api/join', views.join_room),
+    # url(r'^publish-question$', views.publish_question),
+    url(r'^api/votes', views.VoteApiView.as_view()),
+    url(r'^api/questions', views.QuestionApiView.as_view()),
+    url(r'^api/exam/(.*)/report', views.report),
+    url(r'^api/exams', views.ExamApiView.as_view()),
+    url(r'^api/exam', views.current_exam)
+]
