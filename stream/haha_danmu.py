@@ -102,7 +102,7 @@ def send_event():
 
 @socketio.on('enter_room')
 def enter_room_event(room_id):
-    # room_id = decode_room_id(room_id)
+    room_id = decode_room_id(room_id)
     if not room_id:
         logging.error("Room id is invalid.")
         return
@@ -112,7 +112,7 @@ def enter_room_event(room_id):
 
 @socketio.on('leave_room')
 def leave_room_event(room_id):
-    # room_id = decode_room_id(room_id)
+    room_id = decode_room_id(room_id)
     if not room_id:
         logging.error("Room id is invalid.")
         return
