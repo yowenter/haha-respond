@@ -27,6 +27,17 @@ stderr_logfile_maxbytes=0
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 
+[program:danmu]
+directory=/usr/src/app/stream
+command=python haha_danmu.py
+autorestart=true
+startsecs=0
+startretries=25
+stderr_logfile=/dev/stderr
+stderr_logfile_maxbytes=0
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=0
+
 [program:nginx]
 directory=/usr/src/app
 command=nginx -g 'daemon off;'
