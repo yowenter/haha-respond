@@ -73,6 +73,13 @@ def signup(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def join_room(request):
+    return Response(
+        dict(room_id="1234"), status=status.HTTP_200_OK
+    )
+
+
 @api_view(['GET'])
 def report(request):
     vs = Vote.objects.filter(exam=request.data)
@@ -82,4 +89,3 @@ def report(request):
     user_score_map = {k: sum(v) for k, v in grouped_user_score.iteritems()}
     result = sorted(user_score_map.iteritems(), key=lambda d: d[1], reverse=True)
     return Response(json.dumps(result))
-
