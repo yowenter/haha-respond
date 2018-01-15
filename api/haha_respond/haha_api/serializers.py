@@ -20,7 +20,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     def is_valid(self, raise_exception=False):
         super(UserSerializer, self).is_valid()
-        if not self.data.get('email', '').endswith('daocloud.io'):
+        if not str(self.validated_data.get('email', '')).endswith('daocloud.io'):
             raise exceptions.ValidationError(detail="Email should endswith daocloud.io ", code=400)
 
         return True
