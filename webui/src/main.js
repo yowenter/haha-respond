@@ -7,6 +7,7 @@ import 'vant/lib/vant-css/index.css';
 import App from './App';
 import router from './router';
 
+require('es6-promise').polyfill();
 
 Vue.config.productionTip = false;
 
