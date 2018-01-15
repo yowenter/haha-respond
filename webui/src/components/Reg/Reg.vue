@@ -2,6 +2,7 @@
 
 <script>
 import { Dialog } from 'vant';
+import api from '@/model/api';
 
 export default {
   name: 'Register',
@@ -17,7 +18,7 @@ export default {
       const email = this.email;
 
       const emailRegex = new RegExp(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/); // eslint-disable-line
-      const daoEmailRegex = new RegExp(/@daocloud\.com/);
+      const daoEmailRegex = new RegExp(/@daocloud\.io/);
 
       if (!name || !email) {
         this.showDialog('昵称及邮箱均不能为空');
@@ -27,6 +28,7 @@ export default {
         return false;
       } else if (!daoEmailRegex.test(email)) {
         this.showDialog('必须为 daocloud.io 域名的邮箱');
+        return false;
       }
 
       return true;
@@ -42,6 +44,11 @@ export default {
       const valid = this.checkValid();
       if (valid) {
         // reg api
+        api.register(this.name, this.email).then(res => {
+          console.log('success', res);
+        }, err => {
+          console.error(err);
+        });
       }
     },
   },
