@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import os
 from django.contrib import admin
 from django.contrib.admin import TabularInline
+from django.contrib import messages
 
 # Register your models here.
 
@@ -34,12 +35,29 @@ class ExamQuestionListInline(TabularInline):
 
 class ExamAdmin(admin.ModelAdmin):
     list_display = ['name', 'exam_id', 'state', 'pub_date', 'current_question_id']
+
     inlines = [ExamQuestionListInline]
+
+    readonly_fields = ('question_list',)
+
+    def question_list(self, obj):
+        from .models import ExamQuestion
+        qs = ExamQuestion.objects.filter(exam_id=obj.exam_id).all()
+        if qs:
+            txt = "问题ID: 问题TEXT\n"
+            txt += "\n".join(["%s :  %s" % (q.question_id, q.question.question_text) for q in qs])
+            return txt
+
+        return "没有可以激活的问题列表"
 
     def save_model(self, request, obj, form, change):
         if change:
             if obj.current_question_id:
-                publish_question('question_update', obj.current_question_id, obj.room_id)
+                try:
+                    publish_question('question_update', obj.current_question_id, obj.room_id)
+                except Exception as e:
+                    return messages.error(request, "发布推送问题失败，错误消息:%s" % str(e))
+
             super(ExamAdmin, self).save_model(request, obj, form, change)
 
         else:
