@@ -53,7 +53,7 @@ class QuestionApiView(APIView):
     def post(self, request, format=None):
         data = {}
         try:
-            data['event'] = 'question_update'
+            data['event'] = request.data['event']
             question = Question.objects.filter(pk=request.data['question_id'])
             data['data'] = question
             data['room'] = request.data['exam_id']
