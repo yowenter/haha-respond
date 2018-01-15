@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^api/admin/', admin.site.urls),
     url(r'^api/ping', views.ping),
     url(r'^api/user', views.signup),
+    url(r'^api/join', views.join_room),
     # url(r'^publish-question$', views.publish_question),
     url(r'^api/votes', views.VoteApiView.as_view()),
     url(r'^api/questions', views.QuestionApiView.as_view()),

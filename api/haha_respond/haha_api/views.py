@@ -73,6 +73,13 @@ def signup(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def join_room(request):
+    return Response(
+        dict(room_id="1234"), status=status.HTTP_200_OK
+    )
+
+
 @api_view(['GET'])
 def report(request):
     vs = Vote.objects.filter(exam_id=request.data)
