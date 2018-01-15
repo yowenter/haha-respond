@@ -20,9 +20,11 @@ RUN mkdir -p /usr/src/app
 
 COPY api/requirements.txt  /usr/src/app/
 COPY api/requirements-doc.txt /usr/src/app/
+COPY stream/requirements-stream.txt /usr/src/app/
 
 RUN pip install -r /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements-doc.txt
+RUN pip install -r /usr/src/app/requirements-stream.txt
 
 
 
