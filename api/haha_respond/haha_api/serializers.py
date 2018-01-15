@@ -1,5 +1,5 @@
 from rest_framework import serializers, exceptions
-from .models import User, Question, Vote
+from .models import User, Question, Vote, Choice
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -37,6 +37,12 @@ class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
         fields = ('question_id', 'question_text')
+
+
+class ChoiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Choice
+        fields = ('choice_id', 'choice_text', 'is_right')
 
 
 class ExamSerializer(serializers.Serializer):

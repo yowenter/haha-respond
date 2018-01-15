@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import User
 import requests
+from serializers import QuestionSerializer, ChoiceSerializer
 
 from .models import Exam, Question, Vote, Choice
 from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer, QuestionSerializer
@@ -21,7 +22,6 @@ from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer,
 
 def request_user_wrapper(*args):
     pass
-
 
 
 def ping(*args, **kwargs):
@@ -44,6 +44,22 @@ class VoteApiView(APIView):
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
+def publish_question(event, question_id, room_id):
+    data = dict()
+    data['event'] = event
+    question = QuestionSerializer(Question.objects.filter(pk=question_id).first()).data
+    choices = [ChoiceSerializer(c).data for c in Choice.objects.filter(question=question_id).all()]
+
+    question['choices'] = choices
+    data['data'] = question
+    data['room'] = room_id
+    try:
+        r = requests.post('http://localhost:3100/event', json=data)
+        r.raise_for_status()
+    except Exception as e:
+        raise e
+
+
 class QuestionApiView(APIView):
     def get(self, request, format=None):
         questions = Question.objects.all()
@@ -53,14 +69,16 @@ class QuestionApiView(APIView):
     def post(self, request, format=None):
         data = {}
         try:
-            data['event'] = request.data['event']
-            question = Question.objects.filter(pk=request.data['question_id'])
-            choices = Choice.objects.filter(question__id=request.data['question_id'])
-            question['choices'] = choices
-            data['data'] = question
-            data['room'] = request.data['exam_id']
-            r = requests.post('http://localhost:3100/event', json=data)
-            r.raise_for_status()
+            publish_question(request.data['event'], request.data['question_id'], request.data['question_id'])
+
+            # data['event'] = request.data['event']
+            # question = Question.objects.filter(pk=request.data['question_id'])
+            # choices = Choice.objects.filter(question__id=request.data['question_id'])
+            # question['choices'] = choices
+            # data['data'] = question
+            # data['room'] = request.data['exam_id']
+            # r = requests.post('http://localhost:3100/event', json=data)
+            # r.raise_for_status()
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
         return Response(request.data, status=status.HTTP_201_CREATED)
@@ -75,7 +93,6 @@ def signup(request):
         # data.pop("password")
         return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 
 @api_view(['POST'])

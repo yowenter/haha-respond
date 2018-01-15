@@ -22,22 +22,29 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 #
-from haha_api.views import QuestionApiView
-publish_question = QuestionApiView.post
-#todo
+from .views import publish_question
+
+
+# todo
 
 
 class ExamQuestionListInline(TabularInline):
     model = ExamQuestion
-    inline_actions = [publish_question]
 
 
 class ExamAdmin(admin.ModelAdmin):
-    list_display = ['name', 'exam_id', 'state', 'pub_date', ]
+    list_display = ['name', 'exam_id', 'state', 'pub_date', 'current_question_id']
     inlines = [ExamQuestionListInline]
+
+    def save_model(self, request, obj, form, change):
+        if change:
+            if obj.current_question_id:
+                publish_question('question_update', obj.current_question_id, obj.room_id)
+            super(ExamAdmin, self).save_model(request, obj, form, change)
+
+        else:
+            super(ExamAdmin, self).save_model(request, obj, form, change)
 
 
 admin.site.register(Question, QuestionAdmin)
-# admin.site.register(Choice, ChoiceAdmin)
 admin.site.register(Exam, ExamAdmin)
-# admin.site.register(ExamQuestion, ExamQuestionAdmin)
