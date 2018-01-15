@@ -46,20 +46,18 @@ class QuestionApiView(APIView):
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-@api_view(['POST'])
-def publish_question(request):
-    data = {}
-    data['event'] = 'question_update'
-    question = Question.objects.filter(pk=request.data['question_id'])
-    data['data'] = question
-    data['room'] = request.data['exam_id']
-    try:
-        r = requests.post('http://localhost:3100/event', json=data)
-        r.raise_for_status()
-    except Exception as e:
-        return Response(request.data, status=status.HTTP_400_BAD_REQUEST)
-    return Response(request.data, status=status.HTTP_201_CREATED)
+    def post(self, request, format=None):
+        data = {}
+        try:
+            data['event'] = 'question_update'
+            question = Question.objects.filter(pk=request.data['question_id'])
+            data['data'] = question
+            data['room'] = request.data['exam_id']
+            r = requests.post('http://localhost:3100/event', json=data)
+            r.raise_for_status()
+        except Exception as e:
+            return Response(e, status=status.HTTP_400_BAD_REQUEST)
+        return Response(request.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
