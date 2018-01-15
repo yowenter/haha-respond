@@ -22,11 +22,11 @@ router = routers.DefaultRouter()
 # router.register('api/exams', views.ExamViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^admin/', admin.site.urls),
-    url(r'^ping', views.ping),
+    url(r'^api', include(router.urls)),
+    url(r'^api/admin/', admin.site.urls),
+    url(r'^api/ping', views.ping),
     url(r'^api/user', views.signup),
-    url(r'^publish-question$', views.publish_question),
+    # url(r'^publish-question$', views.publish_question),
     url(r'^api/votes', views.VoteApiView.as_view()),
     url(r'^api/questions', views.QuestionApiView.as_view()),
     url(r'^api/rank/(.*)', views.rank),
