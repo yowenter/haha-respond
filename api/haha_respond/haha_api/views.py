@@ -68,16 +68,15 @@ def signup(request):
     if serializer.is_valid():
         serializer.save()
         data = serializer.data
-        data.pop("password")
+        # data.pop("password")
         return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
-def rank(request):
+def report(request):
     vs = Vote.objects.filter(exam_id=request.data)
     cs = Choice.objects.all()
-
     grouped_user_score = defaultdict(list)
     grouped_user_question = defaultdict(list)
 
