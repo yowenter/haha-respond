@@ -39,9 +39,9 @@ ADD . /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN sh /usr/src/app/api/api-doc/generate_doc.sh
-
-COPY /usr/src/app/api/api-doc/build/html /usr/share/nginx/html/api-doc
+#RUN sh /usr/src/app/api/api-doc/generate_doc.sh
+#
+#COPY /usr/src/app/api/api-doc/build/html /usr/share/nginx/html/api-doc
 
 
 RUN chmod +x /usr/src/app/supervisord.sh
