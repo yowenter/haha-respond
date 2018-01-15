@@ -59,10 +59,9 @@ class ExamQuestion(models.Model):
 
 class Vote(models.Model):
     vote_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
-    exam_id = models.CharField(max_length=64)
-    email = models.CharField(max_length=64)
-    choice_id = models.CharField(max_length=64)
-    question_id = models.CharField(max_length=64)
+    exam = models.ForeignKey(Exam, null=True)
+    choice = models.ForeignKey(Choice, null=True)
+    user = models.ForeignKey(User, null=True)
     score = models.IntegerField()
 
     created_at = models.DateTimeField(auto_created=True, auto_now=True)

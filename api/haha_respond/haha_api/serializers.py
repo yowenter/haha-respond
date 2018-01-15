@@ -56,22 +56,5 @@ class ExamSerializer(serializers.Serializer):
 class VoteSerializer(serializers.Serializer):
     vote_id = serializers.CharField(read_only=True)
     exam_id = serializers.CharField(required=True)
-    email = serializers.CharField(required=True)
     choice_id = serializers.CharField(required=True)
-    question_id = serializers.CharField(required=True)
-    score = serializers.CharField(required=True)
-
-    def create(self, validated_data):
-        vote = Vote(
-            exam_id=validated_data['exam_id'],
-            email=validated_data['email'],
-            choice_id=validated_data['choice_id'],
-            question_id=validated_data['question_id'],
-            score=validated_data['score']
-        )
-        vote.save()
-        return vote
-
-    def is_valid(self, raise_exception=False):
-        super(VoteSerializer, self).is_valid()
-        return True
+    score = serializers.IntegerField(required=True)

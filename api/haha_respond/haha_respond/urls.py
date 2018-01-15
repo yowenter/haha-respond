@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^api/user', views.signup),
     url(r'^api/join', views.join_room),
     # url(r'^publish-question$', views.publish_question),
-    url(r'^api/votes', views.VoteApiView.as_view()),
+    url(r'^api/votes', views.vote),
     url(r'^api/questions', views.QuestionApiView.as_view()),
     url(r'^api/exam/(.*)/report', views.report),
     url(r'^api/exams', views.ExamApiView.as_view()),

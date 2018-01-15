@@ -155,69 +155,48 @@ def current_exam(request):
     return Response(exam_data, status=status.HTTP_200_OK)
 
 
+@api_view(['POST'])
+@request_user_wrapper
+def vote(request):
+    user = request.data['user']
+    exam_id = request.data['exam_id']
+    choice_id = request.data['choice_id']
+    score = request.data['score']
 
+    exam = Exam.objects.filter(exam_id=exam_id).first()
+    if not exam:
+        return Response(dict(msg="exam not found"), status=status.HTTP_400_BAD_REQUEST)
 
+    choice = Choice.objects.filter(choice_id=choice_id).first()
+    if not choice:
+        return Response(dict(msg="choice not found"), status=status.HTTP_400_BAD_REQUEST)
 
+    vote = Vote.objects.filter(exam_id=exam.exam_id, user_id=user['user_id'], choice_id=choice.choice_id).first()
+    if vote:
+        return Response(VoteSerializer(vote).data, status=status.HTTP_200_OK)
 
-    # return Response({
-    #     "room_id": "1234",
-    #     "state": "live",
-    #     "question": {
-    #         "question_id": "1234",
-    #         "question_text": "生命宇宙及一切的答案是什么？",
-    #         "category": "Life",
-    #         "difficulty": 1,
-    #         "choices": [
-    #             {
-    #                 "choice_id": "1234",
-    #                 "choice_text": "42",
-    #                 "is_right": True
-    #             },
-    #             {
-    #                 "choice_id": "1234",
-    #                 "choice_text": "41",
-    #                 "is_right": False
-    #             },
-    #             {
-    #                 "choice_id": "1234",
-    #                 "choice_text": "24",
-    #                 "is_right": False
-    #             }
-    #         ]
-    #     }
-    # }, status=status.HTTP_200_OK)
+    vote = Vote(user_id=user['user_id'], exam_id=exam.exam_id, choice_id=choice.choice_id, score=int(score))
+    vote.save()
+    return Response(VoteSerializer(vote).data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
-def report(request):
-    vs = Vote.objects.filter(exam_id=request.data)
-    cs = Choice.objects.all()
-    grouped_user_score = defaultdict(list)
-    grouped_user_question = defaultdict(list)
+def report(request, exam_id):
+    votes = Vote.objects.filter(exam_id=exam_id).all()
+    users = set([v.user.email for v in votes])
 
-    for v in vs:
-        grouped_user_score[v.email].append(int(v.score))
-        grouped_user_question[v.email].append(v.choice_id)
+    data = list()
 
-    user_score_map = {k: sum(v) for k, v in grouped_user_score.iteritems()}
+    for u in users:
+        total_score = sum([v.score for v in votes if v.user.email == u])
+        right_question_count = len([v for v in votes if v.user.email == u and v.choice.is_right])
+        data.append({
+            "email": u,
+            "total_score": total_score,
+            "right_question_count": right_question_count
+        })
 
-    user_question_map = {}
-    for u in grouped_user_question:
-        user_question_map[u] = 0
-    for email, choices in grouped_user_question:
-        for c in choices:
-            if check_choice_right(c, cs):
-                user_question_map[email] += 1
-
-    result = []
-    for k in user_score_map:
-        r = {}
-        r['email'] = k
-        r['total_score'] = user_score_map[k]
-        r['right_question_count'] = user_question_map[k]
-        result.append(r)
-
-    return Response(json.dumps(result))
+    return Response(data, status=status.HTTP_200_OK)
 
 
 def check_choice_right(choice_id, choices):
