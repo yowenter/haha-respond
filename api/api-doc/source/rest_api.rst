@@ -82,7 +82,7 @@ Signup
 
     HTTP/1.1 200 OK
 
-.. http:post:: /api/exam/<exam_id>/report
+.. http:get:: /api/exam/<exam_id>/report
 
 
 
