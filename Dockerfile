@@ -33,7 +33,7 @@ RUN pip install -r /usr/src/app/requirements-stream.txt
 
 ADD . /usr/src/app
 
-COPY webui/dist/        /usr/share/nginx/html/
+
 
 
 # make html doc
