@@ -48,6 +48,9 @@ class ChoiceSerializer(serializers.ModelSerializer):
 class ExamSerializer(serializers.Serializer):
     exam_id = serializers.CharField(read_only=True)
     name = serializers.CharField(required=True)
+    state = serializers.CharField(required=True)
+    current_question_id = serializers.CharField(required=True)
+
 
 
 class VoteSerializer(serializers.Serializer):

@@ -1,27 +1,45 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import json
+from functools import wraps
 from collections import defaultdict
 from rest_framework import serializers, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import APIException
 
 from django.shortcuts import render, HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import User
+from .models import User, UserExam
 import requests
 from serializers import QuestionSerializer, ChoiceSerializer
 
 from .models import Exam, Question, Vote, Choice
 from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer, QuestionSerializer
 
+import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "stram"))
+
 
 # Create your views here.
 
-def request_user_wrapper(*args):
-    pass
+def request_user_wrapper(func):
+    @wraps(func)
+    def inner(req):
+        email = req.data.get('email') or req._request.environ.get('HTTP_X_EMAIL') or req.query_params.get('email')
+        user = User.objects.filter(email=email).first()
+        if not user:
+            return Response("NO_EMAIL_PROVIDED_OR_NO_USER", status=status.HTTP_401_UNAUTHORIZED)
+
+        req.data['user'] = UserSerializer(user).data
+        req.data['user']['user_id'] = user.id
+        return func(req)
+
+    return inner
 
 
 def ping(*args, **kwargs):
@@ -96,41 +114,78 @@ def signup(request):
 
 
 @api_view(['POST'])
+@request_user_wrapper
 def join_room(request):
+    from stream.haha_stream import encode_room_id
+
+    room_id = request.data['room_id']
+    user = request.data['user']
+
+    exam = Exam.objects.filter(room_id=room_id).first()
+    if not exam:
+        return Response(dict(msg="room_id not found"), status=status.HTTP_400_BAD_REQUEST)
+
+    if not UserExam.objects.filter(user_id=user['user_id'], exam_id=exam.exam_id).first():
+        ue = UserExam(user_id=user['user_id'], exam_id=exam.exam_id)
+        ue.save()
+
+    room = encode_room_id(room_id)
+
     return Response(
-        dict(room_id="1234"), status=status.HTTP_200_OK
+        dict(room_id=room, exam=ExamSerializer(exam).data), status=status.HTTP_200_OK
     )
 
 
 @api_view(['GET'])
+@request_user_wrapper
 def current_exam(request):
-    return Response({
-        "room_id": "1234",
-        "state": "live",
-        "question": {
-            "question_id": "1234",
-            "question_text": "生命宇宙及一切的答案是什么？",
-            "category": "Life",
-            "difficulty": 1,
-            "choices": [
-                {
-                    "choice_id": "1234",
-                    "choice_text": "42",
-                    "is_right": True
-                },
-                {
-                    "choice_id": "1234",
-                    "choice_text": "41",
-                    "is_right": False
-                },
-                {
-                    "choice_id": "1234",
-                    "choice_text": "24",
-                    "is_right": False
-                }
-            ]
-        }
-    }, status=status.HTTP_200_OK)
+    room_id = request.data.get('room') or request.query_params.get('room')
+    exam = Exam.objects.filter(room_id=room_id).first()
+    if not exam:
+        return Response(dict(msg="room_id not found"), status=status.HTTP_400_BAD_REQUEST)
+
+    exam_data = ExamSerializer(exam).data
+
+    question = QuestionSerializer(Question.objects.filter(pk=exam_data['current_question_id']).first()).data
+    choices = [ChoiceSerializer(c).data for c in Choice.objects.filter(question=exam_data['current_question_id']).all()]
+
+    question['choices'] = choices
+    exam_data['question'] = question
+
+    return Response(exam_data, status=status.HTTP_200_OK)
+
+
+
+
+
+
+    # return Response({
+    #     "room_id": "1234",
+    #     "state": "live",
+    #     "question": {
+    #         "question_id": "1234",
+    #         "question_text": "生命宇宙及一切的答案是什么？",
+    #         "category": "Life",
+    #         "difficulty": 1,
+    #         "choices": [
+    #             {
+    #                 "choice_id": "1234",
+    #                 "choice_text": "42",
+    #                 "is_right": True
+    #             },
+    #             {
+    #                 "choice_id": "1234",
+    #                 "choice_text": "41",
+    #                 "is_right": False
+    #             },
+    #             {
+    #                 "choice_id": "1234",
+    #                 "choice_text": "24",
+    #                 "is_right": False
+    #             }
+    #         ]
+    #     }
+    # }, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
