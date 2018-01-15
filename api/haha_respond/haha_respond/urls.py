@@ -19,7 +19,7 @@ from haha_api import views
 from rest_framework import serializers, viewsets, routers
 
 router = routers.DefaultRouter()
-router.register('api/exams', views.ExamViewSet)
+# router.register('api/exams', views.ExamViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^publish-question$', views.publish_question),
     url(r'^api/votes', views.VoteApiView.as_view()),
     url(r'^api/questions', views.QuestionApiView.as_view()),
-    url(r'^api/rank/(.*)', views.rank)
+    url(r'^api/rank/(.*)', views.rank),
+    url(r'^api/exams', views.ExamApiView.as_view())
 ]
