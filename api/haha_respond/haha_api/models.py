@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import random
 
 from django.db import models
 
@@ -31,9 +32,14 @@ class Choice(models.Model):
         return self.choice_text
 
 
+def _generate_random_room():
+    return "".join([str(random.randint(0, 9)) for i in range(4)])
+
+
 class Exam(models.Model):
     exam_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=64)
+    room_id = models.CharField(max_length=64, default=_generate_random_room)
 
     pub_date = models.DateTimeField()
     # state can be one of ["draft", "live", "closed"]

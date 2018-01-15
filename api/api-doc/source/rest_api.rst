@@ -5,79 +5,98 @@ Haha Respond API
 
 
 
-获取当前比赛状态
------------------
+Signup
+-------------
 
-.. http:get:: /v1/game
+.. http:post:: /api/user
+
+    :jsonparam string username: TAOG
+    :jsonparam string email: TAOG@DAOCLOUD.IO
+
 
 .. sourcecode:: http
 
     HTTP/1.1 200 OK
 
+
+
+.. http:post:: /api/join
+
+    :jsonparam string email: TAOG@DAOCLOUD.IO
+    :jsonparam string room: 1234
+
+
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+
+
     {
-        "id":"123",
-        "started_at":"1515851260",
-        "current_question": "XXXX",
-        "user":{
-            "id":"XXX",
-            "state":"failure"
+        "room_id":"123"
+    }
+
+
+.. http:get:: /api/exam
+
+    :jsonparam string email: TAOG@DAOCLOUD.IO
+
+
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+
+
+    {
+        "room_id":"123",
+        "exam":{
+            "exam_id":"1334",
+            "state":"live",
+            "question":{
+                "question_id":"1XX",
+                "question_text":"XXXXX",
+                "choices":[
+                    {
+                        "choice_id":"XXX",
+                        "choice_text":"XXXX",
+                        "is_right":False
+                    }
+                ]
+            }
+
         }
     }
 
 
-获取问题
------------------
-
-.. http:get:: /v1/question
-
-    :jsonparam string token: token
-    :jsonparam string game_id: game_123
 
 
+.. http:post:: /api/votes
+
+    :jsonparam string email: TAOG@DAOCLOUD.IO
+    :jsonparam string exam_id: XXX
+    :jsonparam string choice_id: XXX
+    :jsonparam string question_id: XXX
+    :jsonparam string score: XXX
 
 
-提交答案
------------------
+.. sourcecode:: http
 
-.. http:post:: /v1/respond
-
-    :jsonparam string token: token
-    :jsonparam string game_id: game_123
-    :jsonparam string answer: game_123
+    HTTP/1.1 200 OK
 
 
-
-获取答案
-------------------
-
-.. http:get:: /v1/answer
-
-    :jsonparam string token: token
+Question 推送消息
+----------------------
 
 
-消息推送问题
------------------
+**Message**::
 
-**message**::
-
-    {
-            "id":"XXX",
-            "question":"XXXX",
-            "choices":{
-                "A":"XXXX",
-                "B":"XXXX",
-                "C":"XXXXX"
+            {
+                "question_id":"1XX",
+                "question_text":"XXXXX",
+                "choices":[
+                    {
+                        "choice_id":"XXX",
+                        "choice_text":"XXXX",
+                        "is_right":False
+                    }
+                ]
             }
-        }
-
-
-消息推送答案
--------------------
-
-**message**::
-
-        {
-            "id":"XXX",
-            "question_id":"123",
-            "answer":"A"
-        }

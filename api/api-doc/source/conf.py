@@ -19,8 +19,8 @@
 import os
 import sys
 
-print os.path.join(os.path.dirname(os.path.dirname(__file__)))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__))))
+print os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'haha_respond')
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'haha_respond'))
 
 # -- General configuration ------------------------------------------------
 
