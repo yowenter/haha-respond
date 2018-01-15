@@ -20,7 +20,7 @@ class StreamServerConfig(object):
     ROOM_KEY = os.getenv('ROOM_KEY')
     SOCKETIO_CHANNEL = os.getenv('SOCKETIO_CHANNEL', 'haha-stream')
     CORS_MAX_AGE = 86400
-    DANMU_ROOM_ID = 88888
+    DANMU_ROOM_ID = '88888'
 
 
 app = Flask(__name__)
@@ -87,13 +87,13 @@ def send_event():
         logging.error("Parse request failed, arguments is missing.")
         return abort(400)
 
-    # room_id = decode_room_id(room_id)
+    room_id = decode_room_id(room_id)
     if not room_id:
         logging.error("Room id is invalid.")
         return abort(403)
 
     if room_id not in get_rooms():
-        logging.error("Room id not exist.")
+        logging.error("Room id {} not exist.".format(room_id))
         return abort(404)
 
     socketio.emit(event, body, room=room_id)
@@ -103,6 +103,7 @@ def send_event():
 @socketio.on('enter_room')
 def enter_room_event(room_id):
     room_id = decode_room_id(room_id)
+    print room_id
     if not room_id:
         logging.error("Room id is invalid.")
         return
