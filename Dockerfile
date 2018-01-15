@@ -25,7 +25,17 @@ RUN pip install -r /usr/src/app/requirements.txt
 RUN pip install -r /usr/src/app/requirements-doc.txt
 
 
+
+
 ADD . /usr/src/app
+
+WORKDIR /usr/src/app/api-doc
+
+RUN make html
+
+COPY build/html /usr/share/nginx/html/api-doc
+
+WORKDIR /usr/src/app
 
 RUN chmod +x /usr/src/app/supervisord.sh
 
