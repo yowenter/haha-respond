@@ -24,9 +24,11 @@ def ping(*args, **kwargs):
     return HttpResponse("pong")
 
 
-class ExamViewSet(viewsets.ModelViewSet):
-    queryset = Exam.objects.all().order_by('name')
-    serializer_class = ExamSerializer
+class ExamApiView(APIView):
+    def get(self, request, format=None):
+        exams = Exam.objects.all()
+        serializer = ExamSerializer(exams, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class VoteApiView(APIView):
