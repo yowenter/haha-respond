@@ -15,6 +15,7 @@ export default {
     const user = localStorage.getItem('user');
     if (user) {
       // go to main page
+      this.$router.push({ name: 'Board' });
     } else {
       this.$router.push({ name: 'Register' });
     }
