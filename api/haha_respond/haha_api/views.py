@@ -22,8 +22,6 @@ from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer,
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), "stram"))
-
 
 # Create your views here.
 
@@ -116,7 +114,7 @@ def signup(request):
 @api_view(['POST'])
 @request_user_wrapper
 def join_room(request):
-    from stream.haha_stream import encode_room_id
+    # from stream.haha_stream import encode_room_id
 
     room_id = request.data['room_id']
     user = request.data['user']
@@ -129,10 +127,8 @@ def join_room(request):
         ue = UserExam(user_id=user['user_id'], exam_id=exam.exam_id)
         ue.save()
 
-    room = encode_room_id(room_id)
-
     return Response(
-        dict(room_id=room, exam=ExamSerializer(exam).data), status=status.HTTP_200_OK
+        dict(room_id=room_id, exam=ExamSerializer(exam).data), status=status.HTTP_200_OK
     )
 
 
