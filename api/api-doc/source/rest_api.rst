@@ -47,25 +47,32 @@ Signup
 
 
     {
-        "room_id":"123",
-        "exam":{
-            "exam_id":"1334",
-            "state":"live",
-            "question":{
-                "question_id":"1XX",
-                "question_text":"XXXXX",
-                "choices":[
-                    {
-                        "choice_id":"XXX",
-                        "choice_text":"XXXX",
-                        "is_right":False
-                    }
-                ]
-            }
-
-        }
+        "question": {
+            "category": "Life",
+            "difficulty": 1,
+            "choices": [
+                {
+                    "choice_id": "1234",
+                    "choice_text": "42",
+                    "is_right": true
+                },
+                {
+                    "choice_id": "1234",
+                    "choice_text": "41",
+                    "is_right": false
+                },
+                {
+                    "choice_id": "1234",
+                    "choice_text": "24",
+                    "is_right": false
+                }
+            ],
+            "question_text": "生命宇宙及一切的答案是什么？",
+            "question_id": "1234"
+        },
+        "state": "live",
+        "room_id": "1234"
     }
-
 
 
 
