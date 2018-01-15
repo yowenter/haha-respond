@@ -6,8 +6,8 @@ nodaemon=true
 
 
 [program:app]
-directory=/usr/src/app/api
-command=gunicorn -k gevent --max-requests 3000 --access-logfile - --error-logfile - -b 0.0.0.0:8000 haha_respond.haha_respond.wsgi:application --threads 4
+directory=/usr/src/app/api/haha_respond
+command=gunicorn -k gevent --max-requests 3000 --access-logfile - --error-logfile - -b 0.0.0.0:8000 haha_respond.wsgi:application --threads 4
 autorestart=true
 startsecs=0
 startretries=25
