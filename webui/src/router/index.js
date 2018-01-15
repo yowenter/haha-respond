@@ -4,6 +4,7 @@ import Index from '@/components/Index/Index';
 import Reg from '@/components/Reg/Reg';
 import Board from '@/components/Board/Board';
 import Code from '@/components/Code/Code';
+import Rank from '@/components/Rank/Rank';
 
 Vue.use(Router);
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/code',
       name: 'Code',
       component: Code,
+    },
+    {
+      path: '/rank',
+      name: 'Rank',
+      component: Rank,
     },
   ],
 });
