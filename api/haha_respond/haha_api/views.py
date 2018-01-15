@@ -68,7 +68,7 @@ def signup(request):
     if serializer.is_valid():
         serializer.save()
         data = serializer.data
-        data.pop("password")
+        # data.pop("password")
         return Response(data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -82,3 +82,4 @@ def report(request):
     user_score_map = {k: sum(v) for k, v in grouped_user_score.iteritems()}
     result = sorted(user_score_map.iteritems(), key=lambda d: d[1], reverse=True)
     return Response(json.dumps(result))
+
