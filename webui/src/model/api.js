@@ -1,10 +1,9 @@
 import $http from './const';
 
 const register = (username, email) => {
-  return $http.post('/api/user', {
-    username,
-    email,
-  }).then(res => res.data);
+  return $http
+    .post('/api/user', { username, email })
+    .then(res => res.data);
 };
 
 const join = (email, room) => {

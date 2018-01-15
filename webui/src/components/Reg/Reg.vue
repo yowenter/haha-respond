@@ -10,6 +10,7 @@ export default {
     return {
       username: '',
       email: '',
+      password: 'afsjfk2123',
       loading: false,
     };
   },
@@ -46,12 +47,13 @@ export default {
       if (valid) {
         // reg api
         this.loading = true;
-        api.register(this.username, this.email).then(res => {
+        api.register(this.username, this.email).then(() => {
           this.loading = false;
-          console.log('success', res);
-        }, err => {
+          localStorage.setItem('user', this.email);
+          this.$router.push({ name: 'Code' });
+        }, () => {
           this.loading = false;
-          console.error(err);
+          this.showDialog('注册失败，请重试');
         });
       }
     },
