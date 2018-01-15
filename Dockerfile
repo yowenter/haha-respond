@@ -8,6 +8,8 @@ RUN apk add --update \
   && rm -rf /var/cache/apk/* \
   && pip install gunicorn
 
+RUN apk --update add py-mysqldb
+
 
 ENV LANG en_US.utf8
 
