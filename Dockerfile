@@ -6,7 +6,7 @@ MAINTAINER TAOG
 RUN apk add --update \
   ca-certificates gcc musl-dev nginx supervisor \
   && rm -rf /var/cache/apk/* \
-  && pip install gunicorn newrelic
+  && pip install gunicorn
 
 
 ENV LANG en_US.utf8
@@ -14,7 +14,7 @@ ENV LANG en_US.utf8
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 COPY nginx/conf.d/haha.conf /etc/nginx/conf.d/haha.conf
 
-COPY webui/dist/        /usr/share/nginx/html/
+
 
 RUN mkdir -p /usr/src/app
 
@@ -29,6 +29,10 @@ RUN pip install -r /usr/src/app/requirements-doc.txt
 
 ADD . /usr/src/app
 
+COPY webui/dist/        /usr/share/nginx/html/
+
+
+# make html doc
 WORKDIR /usr/src/app/api-doc
 
 RUN make html
