@@ -38,11 +38,11 @@ ADD . /usr/src/app
 
 
 # make html doc
-#WORKDIR /usr/src/app/api-doc
+WORKDIR /usr/src/app/api-doc
 #
-#RUN make html
+RUN make html
 #
-#COPY build/html /usr/share/nginx/html/api-doc
+COPY build/html /usr/share/nginx/html/api-doc
 
 WORKDIR /usr/src/app
 
