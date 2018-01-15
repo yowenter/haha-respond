@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Index from '@/components/Index/Index';
 import Reg from '@/components/Reg/Reg';
 import Board from '@/components/Board/Board';
+import Code from '@/components/Code/Code';
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/board',
       name: 'Board',
       component: Board,
+    },
+    {
+      path: '/code',
+      name: 'Code',
+      component: Code,
     },
   ],
 });
