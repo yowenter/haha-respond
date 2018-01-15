@@ -14,10 +14,6 @@ RUN apk --update add py-mysqldb mariadb-dev linux-headers libc-dev python-dev
 
 ENV LANG en_US.utf8
 
-COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/conf.d/haha.conf /etc/nginx/conf.d/haha.conf
-
-
 
 RUN mkdir -p /usr/src/app
 
@@ -30,6 +26,8 @@ RUN pip install -r /usr/src/app/requirements-doc.txt
 RUN pip install -r /usr/src/app/requirements-stream.txt
 
 
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/conf.d/haha.conf /etc/nginx/conf.d/haha.conf
 
 
 ADD . /usr/src/app
