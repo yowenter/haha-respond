@@ -74,7 +74,7 @@ def signup(request):
 
 
 @api_view(['GET'])
-def rank(request):
+def report(request):
     vs = Vote.objects.filter(exam=request.data)
     grouped_user_score = defaultdict(list)
     for v in vs:
