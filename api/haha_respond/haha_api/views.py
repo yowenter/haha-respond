@@ -13,7 +13,7 @@ from rest_framework import status
 from .models import User
 import requests
 
-from .models import Exam, Question, Vote
+from .models import Exam, Question, Vote, Choice
 from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer, QuestionSerializer
 
 
@@ -46,20 +46,18 @@ class QuestionApiView(APIView):
         serializer = QuestionSerializer(questions, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-@api_view(['POST'])
-def publish_question(request):
-    data = {}
-    data['event'] = 'question_update'
-    question = Question.objects.filter(pk=request.data['question_id'])
-    data['data'] = question
-    data['room'] = request.data['exam_id']
-    try:
-        r = requests.post('http://localhost:3100/event', json=data)
-        r.raise_for_status()
-    except Exception as e:
-        return Response(request.data, status=status.HTTP_400_BAD_REQUEST)
-    return Response(request.data, status=status.HTTP_201_CREATED)
+    def post(self, request, format=None):
+        data = {}
+        try:
+            data['event'] = 'question_update'
+            question = Question.objects.filter(pk=request.data['question_id'])
+            data['data'] = question
+            data['room'] = request.data['exam_id']
+            r = requests.post('http://localhost:3100/event', json=data)
+            r.raise_for_status()
+        except Exception as e:
+            return Response(e, status=status.HTTP_400_BAD_REQUEST)
+        return Response(request.data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['POST'])
@@ -113,10 +111,35 @@ def current_exam(request):
 
 @api_view(['GET'])
 def report(request):
-    vs = Vote.objects.filter(exam=request.data)
+    vs = Vote.objects.filter(exam_id=request.data)
+    cs = Choice.objects.all()
     grouped_user_score = defaultdict(list)
+    grouped_user_question = defaultdict(list)
+
     for v in vs:
-        grouped_user_score[v.user].append(int(v.score))
+        grouped_user_score[v.email].append(int(v.score))
+        grouped_user_question[v.email].append(v.choice_id)
+
     user_score_map = {k: sum(v) for k, v in grouped_user_score.iteritems()}
-    result = sorted(user_score_map.iteritems(), key=lambda d: d[1], reverse=True)
+
+    user_question_map = {}
+    for u in grouped_user_question:
+        user_question_map[u] = 0
+    for email, choices in grouped_user_question:
+        for c in choices:
+            if check_choice_right(c, cs):
+                user_question_map[email] += 1
+
+    result = []
+    for k in user_score_map:
+        r = {}
+        r['email'] = k
+        r['total_score'] = user_score_map[k]
+        r['right_question_count'] = user_question_map[k]
+        result.append(r)
+
     return Response(json.dumps(result))
+
+
+def check_choice_right(choice_id, choices):
+    return [c for c in choices if c.choice_id == choice_id and c.is_right]
