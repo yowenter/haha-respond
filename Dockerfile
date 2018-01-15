@@ -8,7 +8,7 @@ RUN apk add --update \
   && rm -rf /var/cache/apk/* \
   && pip install gunicorn
 
-RUN apk --update add py-mysqldb
+RUN apk --update add py-mysqldb mariadb-dev linux-headers libc-dev python-dev
 
 
 ENV LANG en_US.utf8
