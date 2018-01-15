@@ -37,14 +37,11 @@ ADD . /usr/src/app
 
 
 
-# make html doc
-WORKDIR /usr/src/app/api-doc
-#
-RUN make html
-#
-COPY build/html /usr/share/nginx/html/api-doc
-
 WORKDIR /usr/src/app
+
+RUN sh generate_doc.sh
+
+COPY /usr/src/app/api-doc/build/html /usr/share/nginx/html/api-doc
 
 RUN chmod +x /usr/src/app/supervisord.sh
 
