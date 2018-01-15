@@ -70,7 +70,7 @@ def check_room_id(cipher_room_id):
     return cipher_room_id == encode_room_id(plain_room_id, timestamp)
 
 
-@app.route('/danmu', methods=['POST'])
+@app.route('/comments', methods=['POST'])
 def send_event():
     try:
         request_json = request.get_json(force=True, silent=True)
