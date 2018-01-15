@@ -78,7 +78,7 @@ def rank(request):
     vs = Vote.objects.filter(exam=request.data)
     grouped_user_score = defaultdict(list)
     for v in vs:
-        grouped_user_score[v.user].append(v.score)
+        grouped_user_score[v.user].append(int(v.score))
     user_score_map = {k: sum(v) for k, v in grouped_user_score.iteritems()}
     result = sorted(user_score_map.iteritems(), key=lambda d: d[1], reverse=True)
     return Response(json.dumps(result))
