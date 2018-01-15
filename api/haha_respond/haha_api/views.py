@@ -102,6 +102,9 @@ class QuestionApiView(APIView):
 
 @api_view(['POST'])
 def signup(request):
+    if not request.data.get("email") or not request.data.get("username"):
+        return Response(dict(msg="Field email or username missed"), status=status.HTTP_400_BAD_REQUEST)
+
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
