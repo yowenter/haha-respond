@@ -82,7 +82,6 @@ Signup
     :jsonparam string email: TAOG@DAOCLOUD.IO
     :jsonparam string exam_id: XXX
     :jsonparam string choice_id: XXX
-    :jsonparam string question_id: XXX
     :jsonparam string score: XXX
 
 
