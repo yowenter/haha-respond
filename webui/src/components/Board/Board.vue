@@ -5,8 +5,13 @@
 import '@/model/socket';
 import { bus } from '@/model/const';
 
+import Rank from '../Rank/Rank';
+
 export default {
   name: 'Board',
+  components: {
+    Rank,
+  },
   data() {
     return {
 
