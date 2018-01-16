@@ -3,6 +3,8 @@
 
 <script>
 import { clone } from 'lodash';
+import api from '@/model/api';
+
 import TextAvatar from '../text-avatar';
 
 export default {
@@ -30,9 +32,15 @@ export default {
       ranks: [],
     };
   },
+  created() {
+    api.rank()
+      .then(res => {
+        this.ranks = res;
+      });
+  },
   computed: {
     sortedRanks() {
-      return clone(this.ranks).sort((a, b) => b.score - a.score);
+      return clone(this.ranks).sort((a, b) => b.total_score - a.total_score);
     },
     topRanks() {
       return this.sortedRanks.slice(0, 3);
