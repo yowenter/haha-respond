@@ -78,10 +78,11 @@ DATABASES = {
         'NAME': "haha_respond",
         'PASSWORD': 'password',
         'USER': 'root',
-        'HOST': os.getenv("MYSQL_HOST") or '127.0.0.1'
+        'HOST': os.getenv("MYSQL_HOST") or '127.0.0.1',
+
+        "CONN_MAX_AGE": 500
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
