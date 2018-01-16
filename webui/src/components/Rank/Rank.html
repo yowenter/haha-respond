@@ -1,0 +1,13 @@
+<div class="rank-list">
+  <div class="rank-container">
+    <div class="rank" v-for="(rank, index) in ranks">
+      <div class="rank-left">
+        <text-avatar class="icon" :data="getIcon(rank.username, index)"></text-avatar>
+      </div>
+      <div class="rank-right">
+        <div class="name">{{ (index + 1) + '.' + rank.username }}</div>
+        <div class="score">{{ rank.score }}</div>
+      </div>
+    </div>
+  </div>
+</div>
