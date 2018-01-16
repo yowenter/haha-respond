@@ -1,20 +1,20 @@
 <template>
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <defs>
-      <filter id="f1" x="-1" y="-1" width="300%" height="300%">
+      <filter :id="`bs${currentData.type}`" x="-1" y="-1" width="300%" height="300%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="8" />
         <feOffset result="offsetblur" dx="0" dy="0" />
-        <feFlood flood-color="rgba(0,0,0,0.2)"/>
+        <feFlood :flood-color="currentData.boxShadow"/>
         <feComposite in2="offsetblur" operator="in"/>
         <feMerge>
           <feMergeNode/>
           <feMergeNode in="SourceGraphic"/>
         </feMerge>
       </filter>
-      <filter id="f2" x="-1" y="-1" width="300%" height="300%">
+      <filter :id="`bd${currentData.type}`" x="-1" y="-1" width="300%" height="300%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
         <feOffset result="offsetblur" dx="0" dy="0" />
-        <feFlood flood-color="rgba(0,0,0,0.3)"/>
+        <feFlood :flood-color="currentData.border"/>
         <feComposite in2="offsetblur" operator="in"/>
         <feMerge>
           <feMergeNode/>
@@ -24,11 +24,11 @@
     </defs>
     <rect x="20" y="20" rx="10" ry="10" width="60" height="60"
       stroke="white" stroke-width="2.5"
-      transform="rotate(45, 50 50)" filter="url(#f2)"
+      transform="rotate(45, 50 50)" :filter="`url(#bd${currentData.type})`"
       :style="{fill: currentData.bg}"/>
     <rect x="20" y="20" rx="10" ry="10" width="60" height="60"
       stroke="white" stroke-width="2.5"
-      transform="rotate(45, 50 50)" filter="url(#f1)"
+      transform="rotate(45, 50 50)" :filter="`url(#bs${currentData.type})`"
       :style="{fill: currentData.bg}"/>
     <text text-anchor="middle" y="50%" x="50%" dy="0.35em"
       :fill="currentData.color" :font-size="fontSize"
@@ -46,6 +46,9 @@ export default {
         text: '匿',
         color: '#ffffff',
         bg: '#3890ff',
+        boxShadow: 'rgba(0,0,0,0.2)',
+        border: 'rgba(0,0,0,0.3)',
+        type: 'normal',
       },
     };
   },
@@ -69,7 +72,7 @@ export default {
   methods: {
     setCurrentData(val) {
       if (!val) return;
-      this.currentData = val;
+      this.currentData = Object.assign({}, this.currentData, val);
     },
   },
 };
