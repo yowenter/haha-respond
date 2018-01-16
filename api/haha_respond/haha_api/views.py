@@ -180,8 +180,8 @@ def vote(request):
     vote.save()
     event_data = {
         "room": exam.room_id,
+        "event": "user_vote",
         "data": {
-            "event_name": "user_vote",
             "user": user,
             "vote": VoteSerializer(vote).data
         }
@@ -191,7 +191,6 @@ def vote(request):
         push_event(event_data)
     except Exception as e:
         print "Vote push event error:", str(e)
-
 
     return Response(VoteSerializer(vote).data, status=status.HTTP_200_OK)
 
