@@ -60,6 +60,11 @@ class VoteApiView(APIView):
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
+def push_event(data):
+    r = requests.post('http://localhost:3100/event', json=data)
+    r.raise_for_status()
+
+
 def publish_question(event, question_id, room_id):
     data = dict()
     data['event'] = event
@@ -69,11 +74,8 @@ def publish_question(event, question_id, room_id):
     question['choices'] = choices
     data['data'] = question
     data['room'] = room_id
-    try:
-        r = requests.post('http://localhost:3100/event', json=data)
-        r.raise_for_status()
-    except Exception as e:
-        raise e
+
+    push_event(data)
 
 
 class QuestionApiView(APIView):
@@ -176,6 +178,21 @@ def vote(request):
 
     vote = Vote(user_id=user['user_id'], exam_id=exam.exam_id, choice_id=choice.choice_id, score=int(score))
     vote.save()
+    event_data = {
+        "room": exam.room_id,
+        "data": {
+            "event_name": "user_vote",
+            "user": user,
+            "vote": VoteSerializer(vote).data
+        }
+
+    }
+    try:
+        push_event(event_data)
+    except Exception as e:
+        print "Vote push event error:", str(e)
+
+
     return Response(VoteSerializer(vote).data, status=status.HTTP_200_OK)
 
 

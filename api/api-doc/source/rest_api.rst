@@ -124,7 +124,7 @@ Question 推送消息
 ----------------------
 
 
-**Message**::
+**New Question Message**::
 
             {
                 "question_id":"1XX",
@@ -136,6 +136,14 @@ Question 推送消息
                         "is_right":False
                     }
                 ]
+            }
+
+**New Vote Message**::
+
+            {
+                "event_name": "user_vote",
+                "user": {},
+                "vote":{}
             }
 
 
