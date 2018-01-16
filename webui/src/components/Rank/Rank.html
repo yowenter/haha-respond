@@ -8,7 +8,7 @@
         type: index,
       })"></text-avatar>
       <div :style="`color: ${topColors[index]};text-align: center;font-size: 20px;`">
-        {{ rank.index + '. ' + rank.username }}<br/>
+        {{ (index + 1) + '. ' + rank.username }}<br/>
         <span style="font-size: 25px;">
           {{ rank.score }}
         </span>
