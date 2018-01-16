@@ -3,7 +3,6 @@
 <script>
 // 连接 websocket
 import '@/model/socket';
-import { bus } from '@/model/const';
 
 import Rank from '../Rank/Rank';
 import Comment from '../Comment/Comment';
@@ -20,30 +19,7 @@ export default {
     };
   },
   methods: {
-    // 测试用，最后删掉
-    popup() {
-      bus.$emit('data', {
-        question_id: '1XX',
-        question_text: 'XXXXXXXXXXXXXXXXXXXXXXXX',
-        choices: [
-          {
-            choice_id: 'XXX',
-            choice_text: 'XXXX',
-            is_right: true,
-          },
-          {
-            choice_id: 'XXX',
-            choice_text: 'XXXX',
-            is_right: false,
-          },
-          {
-            choice_id: 'XXX',
-            choice_text: 'XXXX',
-            is_right: false,
-          },
-        ],
-      });
-    },
+
   },
 };
 </script>

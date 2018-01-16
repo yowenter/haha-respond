@@ -35,6 +35,22 @@
       text-align: center;
       border: 1px solid;
       border-radius: 100vh;
+      transition: all .1s linear;
+      &.choice {
+        color: #fff;
+        border-color: #3890ff;
+        background-color: #3890ff;
+      }
+      &.show-answer.bingo {
+        color: #fff;
+        border-color: #22c36a;
+        background-color: #22c36a;
+      }
+      &.show-answer.error {
+        color: currentColor;
+        border-color: #f1483f;
+        background-color: #fff;
+      }
     }
   }
 }
