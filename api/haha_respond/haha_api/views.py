@@ -180,19 +180,28 @@ def vote(request):
 
 
 @api_view(['GET'])
-def report(request, exam_id):
-    votes = Vote.objects.filter(exam_id=exam_id).all()
-    users = set([v.user.email for v in votes])
+def report(request):
+    room = request.data.get("room") or request.query_params.get('room')
+    if not room:
+        return Response(dict(msg="field `room` missed "), status=status.HTTP_400_BAD_REQUEST)
+
+    exam = Exam.objects.filter(room_id=room).first()
+    if not exam:
+        return Response(dict(msg="exam not found "), status=status.HTTP_404_NOT_FOUND)
+
+    votes = Vote.objects.filter(exam_id=exam.exam_id).all()
+    users = set([v.user for v in votes])
 
     data = list()
 
     for u in users:
-        total_score = sum([v.score for v in votes if v.user.email == u])
-        right_question_count = len([v for v in votes if v.user.email == u and v.choice.is_right])
+        total_score = sum([v.score for v in votes if v.user.email == u.email])
+        right_question_count = len([v for v in votes if v.user.email == u.email and v.choice.is_right])
         data.append({
-            "email": u,
+            "email": u.email,
             "total_score": total_score,
-            "right_question_count": right_question_count
+            "right_question_count": right_question_count,
+            "username": u.username
         })
 
     return Response(data, status=status.HTTP_200_OK)

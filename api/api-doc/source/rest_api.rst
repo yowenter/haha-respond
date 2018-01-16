@@ -89,7 +89,9 @@ Signup
 
     HTTP/1.1 200 OK
 
-.. http:get:: /api/exam/<exam_id>/report
+.. http:get:: /api/report
+
+    :jsonparam string room: room
 
 
 
@@ -101,7 +103,8 @@ Signup
         {
             "email":"TAOG@daocloud.io",
             "total_score":"123",
-            "right_question_count":10
+            "right_question_count":10,
+            "username":"TAOG"
         }
 
     ]
