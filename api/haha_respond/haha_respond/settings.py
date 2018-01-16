@@ -74,13 +74,14 @@ WSGI_APPLICATION = 'haha_respond.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': "db.sqlite3",
-        # 'PASSWORD': 'password',
-        # 'USER': 'root',
-        # 'HOST': '127.0.0.1'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "haha_respond",
+        'PASSWORD': 'password',
+        'USER': 'root',
+        'HOST': os.getenv("MYSQL_HOST") or '127.0.0.1'
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -119,5 +120,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 #
 # STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), '_static')
-
-

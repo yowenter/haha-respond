@@ -40,7 +40,7 @@ def _generate_random_room():
 class Exam(models.Model):
     exam_id = models.CharField(max_length=64, primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=64)
-    room_id = models.CharField(max_length=64, default=_generate_random_room)
+    room_id = models.CharField(max_length=64, default=_generate_random_room, db_index=True)
     current_question_id = models.CharField(max_length=64, blank=True)
 
     pub_date = models.DateTimeField()
