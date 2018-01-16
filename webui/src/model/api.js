@@ -13,7 +13,14 @@ const join = (email, room) => {
   }).then(res => res.data);
 };
 
+const vote = (email, examId, choiceId, questionId, score) => {
+  return $http.post('/api/join', {
+    email, exam_id: examId, choice_id: choiceId, question_id: questionId, score,
+  }).then(res => res.data);
+};
+
 export default {
   join,
   register,
+  vote,
 };

@@ -1,5 +1,5 @@
 {
-  "name": "webui",
+  "name": "dashboard",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "",
@@ -11,12 +11,8 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.17.1",
-    "es6-promise": "^4.2.2",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
-    "socket.io-client": "^2.0.4",
-    "vant": "^0.12.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
