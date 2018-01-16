@@ -119,7 +119,7 @@ def signup(request):
 def join_room(request):
     # from stream.haha_stream import encode_room_id
 
-    room_id = request.data['room_id']
+    room_id = request.data.get('room_id') or request.data.get('room')
     user = request.data['user']
 
     exam = Exam.objects.filter(room_id=room_id).first()
