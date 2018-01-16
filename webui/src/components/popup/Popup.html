@@ -2,7 +2,21 @@
   <div class="countdown">{{ sec }}</div>
   <div class="question" v-if="data">
     <div class="title">{{ data.question_text }}</div>
-    <div class="option"
+    <!-- <button id="component-2" class="button button--2" style="filter: url('#filter-goo-2')">
+      Click me
+      <span class="button__bg"></span>
+    </button> -->
+    <svg version="1.1" class="svg-filters">
+      <defs>
+        <filter id="filter-goo-2">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur" />
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+          <feComposite in="SourceGraphic" in2="goo" />
+        </filter>
+      </defs>
+    </svg>
+    <div style="filter: url('#filter-goo-2')"
+      class="option button button--2"
       :class="{ choice: choice === item.choice_id,
       'show-answer': !sec,
       bingo: item.is_right,
@@ -10,6 +24,7 @@
       v-for="item in data.choices"
       @click="choose(item)">
       {{ item.choice_text }}
+      <span class="button__bg"></span>
     </div>
   </div>
 </van-popup>
