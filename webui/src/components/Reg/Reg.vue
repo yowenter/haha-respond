@@ -50,6 +50,7 @@ export default {
         api.register(this.username, this.email).then(() => {
           this.loading = false;
           localStorage.setItem('email', this.email);
+          localStorage.setItem('username', this.username);
           this.$router.push({ name: 'Code' });
         }, () => {
           this.loading = false;

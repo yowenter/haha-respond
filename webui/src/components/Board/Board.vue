@@ -6,11 +6,13 @@ import '@/model/socket';
 import { bus } from '@/model/const';
 
 import Rank from '../Rank/Rank';
+import Comment from '../Comment/Comment';
 
 export default {
   name: 'Board',
   components: {
     Rank,
+    Comment,
   },
   data() {
     return {

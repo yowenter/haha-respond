@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 
 // API_URL
-const defaultUrl = 'http://192.168.1.70:8088';
+const defaultUrl = 'http://47.98.33.15/';
 let currentUrl = defaultUrl;
 if (process.env.API_URL) {
   currentUrl = process.env.API_URL;

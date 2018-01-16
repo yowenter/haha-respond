@@ -1,5 +1,12 @@
 import $http from './const';
 
+const comment = (data) => {
+  return $http.post('/comments', {
+    event: 'comment',
+    data,
+  }).then(res => res.data);
+};
+
 const register = (username, email) => {
   return $http
     .post('/api/user', { username, email })
@@ -20,6 +27,7 @@ const vote = (email, examId, choiceId, questionId, score) => {
 };
 
 export default {
+  comment,
   join,
   register,
   vote,
