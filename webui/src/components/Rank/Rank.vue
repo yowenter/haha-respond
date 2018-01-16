@@ -3,6 +3,7 @@
 
 <script>
 import { clone } from 'lodash';
+import api from '@/model/api';
 
 import TextAvatar from '../text-avatar';
 
@@ -23,80 +24,30 @@ export default {
         '#85C486',
       ],
       topColors: [
-        'rgb(170,170,170)',
         'rgb(245,193,105)',
+        'rgb(170,170,170)',
         'rgba(194,9,9,0.5)',
       ],
       randomColorNumber: 7,
-      ranks: [{
-        username: 'Test1',
-        email: 'aa@daocloud.io',
-        score: 111,
-      }, {
-        username: 'Cin2',
-        email: 'aa@daocloud.io',
-        score: 112,
-      }, {
-        username: 'Mimo3',
-        email: 'aa@daocloud.io',
-        score: 113,
-      }, {
-        username: 'Nighting4',
-        email: 'aa@daocloud.io',
-        score: 114,
-      }, {
-        username: 'Cisy5',
-        email: 'aa@daocloud.io',
-        score: 115,
-      }, {
-        username: 'Test',
-        email: 'aa@daocloud.io',
-        score: 111,
-      }, {
-        username: 'Test2',
-        email: 'aa@daocloud.io',
-        score: 111,
-      }, {
-        username: 'Test3',
-        email: 'aa@daocloud.io',
-        score: 111,
-      }, {
-        username: 'Test4',
-        email: 'aa@daocloud.io',
-        score: 111,
-      }, {
-        username: 'Test5',
-        email: 'aa@daocloud.io',
-        score: 111,
-      }],
+      ranks: [],
     };
+  },
+  created() {
+    api.rank()
+      .then(res => {
+        this.ranks = res;
+      });
   },
   computed: {
     sortedRanks() {
-      return clone(this.ranks).sort((a, b) => b.score - a.score);
+      return clone(this.ranks).sort((a, b) => b.total_score - a.total_score);
     },
     topRanks() {
-      const topRanks = this.sortedRanks.slice(0, 3);
-      return [{
-        index: 2,
-        ...topRanks[1],
-      }, {
-        index: 1,
-        ...topRanks[0],
-      }, {
-        index: 3,
-        ...topRanks[2],
-      }];
+      return this.sortedRanks.slice(0, 3);
     },
     otherRanks() {
       return this.sortedRanks.slice(3);
     },
-  },
-  mounted() {
-    // const user = localStorage.getItem('user');
-    // if (!user) {
-    //   this.$router.push({ name: 'Register' });
-    // }
   },
   methods: {
     getIcon(username, index, otherData = {}) {

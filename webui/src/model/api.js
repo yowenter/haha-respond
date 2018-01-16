@@ -26,9 +26,20 @@ const vote = ({ email, examId, choiceId, questionId, score }) => {
   }).then(res => res.data);
 };
 
+const rank = () => {
+  const room = localStorage.getItem('room_id');
+  console.log(room);
+  return $http.get('/api/report', {
+    params: {
+      room,
+    },
+  }).then(res => res.data);
+}
+
 export default {
   comment,
   join,
+  rank,
   register,
   vote,
 };

@@ -2,10 +2,16 @@ h1 {
   text-align: center;
 }
 .rank-top {
-  display: flex;
   .top-item {
-    flex: 1;
-    &:not(:nth-child(2)) {
+    width: calc(100% / 3);
+    display: inline-block;
+    &:nth-child(1) {
+      transform: translate(100%);
+    }
+    &:nth-child(2) {
+      transform: translate(-100%) scale(0.7);
+    }
+    &:nth-child(3) {
       transform: scale(0.7);
     }
   }
