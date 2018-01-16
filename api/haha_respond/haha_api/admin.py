@@ -51,14 +51,17 @@ class ExamAdmin(admin.ModelAdmin):
         return "没有可以激活的问题列表"
 
     def save_model(self, request, obj, form, change):
+        error =None
         if change:
             if obj.current_question_id:
                 try:
                     publish_question('question_update', obj.current_question_id, obj.room_id)
                 except Exception as e:
-                    return messages.error(request, "发布推送问题失败，错误消息:%s" % str(e))
+                    error = e
 
             super(ExamAdmin, self).save_model(request, obj, form, change)
+            if error:
+                return messages.error(request, "保存成功。但发布推送消息失败，错误消息:%s" % str(error))
 
         else:
             super(ExamAdmin, self).save_model(request, obj, form, change)
