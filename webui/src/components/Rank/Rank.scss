@@ -1,3 +1,22 @@
+h1 {
+  text-align: center;
+}
+.rank-top {
+  display: flex;
+  .top-item {
+    flex: 1;
+    &:not(:nth-child(2)) {
+      transform: scale(0.7);
+    }
+  }
+  margin-bottom: 20px;
+}
+hr {
+  transform: scale(0.9);
+  border-bottom: none;
+  border-color: rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
 .rank-container {
   display: flex;
   flex-wrap: wrap;
@@ -14,7 +33,6 @@
       text-align: right;
       .rank-right {
         padding-right: 50px;
-        padding-left: 30px;
         transform: translate(40px, 0);
         background:-webkit-gradient(linear, 100% 0%, 20% 0%,from(#f5f7fa), to(#ffffff));
       }
@@ -25,7 +43,6 @@
       text-align: left;
       .rank-right {
         padding-left: 50px;
-        padding-right: 30px;
         transform: translate(-40px, 0);
         background:-webkit-gradient(linear, 20% 0%, 100% 0%,from(#f5f7fa), to(#ffffff));
       }

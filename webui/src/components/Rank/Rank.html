@@ -1,11 +1,28 @@
 <div class="rank-list">
+  <h1>排行榜</h1>
+  <div class="rank-top">
+    <div v-for="(rank, index) in topRanks" class="top-item">
+      <text-avatar class="icon" :data="getIcon(rank.username, index, {
+        border: topColors[index],
+        boxShadow: topColors[index],
+        type: index,
+      })"></text-avatar>
+      <div :style="`color: ${topColors[index]};text-align: center;font-size: 20px;`">
+        {{ rank.index + '. ' + rank.username }}<br/>
+        <span style="font-size: 25px;">
+          {{ rank.score }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <hr>
   <div class="rank-container">
-    <div class="rank" v-for="(rank, index) in ranks">
+    <div class="rank" v-for="(rank, index) in otherRanks">
       <div class="rank-left">
         <text-avatar class="icon" :data="getIcon(rank.username, index)"></text-avatar>
       </div>
       <div class="rank-right">
-        <div class="name">{{ (index + 1) + '.' + rank.username }}</div>
+        <div class="name">{{ (index + 3) + '. ' + rank.username }}</div>
         <div class="score">{{ rank.score }}</div>
       </div>
     </div>
