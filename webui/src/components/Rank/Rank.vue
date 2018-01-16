@@ -86,7 +86,7 @@ export default {
       }, {
         index: 3,
         ...topRanks[2],
-      }]
+      }];
     },
     otherRanks() {
       return this.sortedRanks.slice(3);
