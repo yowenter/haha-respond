@@ -1,0 +1,11 @@
+<van-popup v-model="show" :overlay="true" :close-on-click-overlay="false">
+  <div class="countdown">{{ sec }}</div>
+  <div class="question" v-if="data">
+    <div class="title">{{ data.question_text }}</div>
+    <div class="option"
+      v-for="item in data.choices"
+      @click="choose(item)">
+      {{ item.choice_text }}
+    </div>
+  </div>
+</van-popup>

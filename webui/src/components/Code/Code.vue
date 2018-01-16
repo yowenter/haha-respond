@@ -42,9 +42,10 @@ export default {
       this.code = this.code.slice(0, this.code.length - 1);
     },
     submit(code) {
-      const email = localStorage.getItem('user');
+      const email = localStorage.getItem('email');
       api.join(email, code).then(res => {
         localStorage.setItem('room_id', res.room_id);
+        localStorage.setItem('exam_id', res.exam.exam_id);
         this.$router.push({ name: 'Board' });
       }, () => {
         this.code = '';

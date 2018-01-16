@@ -12,7 +12,7 @@ export default {
     };
   },
   mounted() {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem('email');
     if (user) {
       // go to main page
       this.$router.push({ name: 'Board' });
