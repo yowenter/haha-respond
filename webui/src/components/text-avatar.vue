@@ -22,9 +22,17 @@
         </feMerge>
       </filter>
     </defs>
-    <rect x="20" y="20" rx="10" ry="10" width="60" height="60" stroke="white" stroke-width="2.5" transform="rotate(45, 50 50)" filter="url(#f2)" :style="{fill: currentData.bg}"/>
-    <rect x="20" y="20" rx="10" ry="10" width="60" height="60" stroke="white" stroke-width="2.5" transform="rotate(45, 50 50)" filter="url(#f1)" :style="{fill: currentData.bg}"/>
-    <text text-anchor="middle" y="50%" x="50%" dy="0.35em" :fill="currentData.color" :font-size="fontSize" style="font-weight: 400;">{{currentData.text}}</text>
+    <rect x="20" y="20" rx="10" ry="10" width="60" height="60"
+      stroke="white" stroke-width="2.5"
+      transform="rotate(45, 50 50)" filter="url(#f2)"
+      :style="{fill: currentData.bg}"/>
+    <rect x="20" y="20" rx="10" ry="10" width="60" height="60"
+      stroke="white" stroke-width="2.5"
+      transform="rotate(45, 50 50)" filter="url(#f1)"
+      :style="{fill: currentData.bg}"/>
+    <text text-anchor="middle" y="50%" x="50%" dy="0.35em"
+      :fill="currentData.color" :font-size="fontSize"
+      style="font-weight: 400;">{{currentData.text}}</text>
   </svg>
 </template>
 
