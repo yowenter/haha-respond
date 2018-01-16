@@ -20,8 +20,8 @@ const join = (email, room) => {
   }).then(res => res.data);
 };
 
-const vote = (email, examId, choiceId, questionId, score) => {
-  return $http.post('/api/join', {
+const vote = ({ email, examId, choiceId, questionId, score }) => {
+  return $http.post('/api/votes', {
     email, exam_id: examId, choice_id: choiceId, question_id: questionId, score,
   }).then(res => res.data);
 };

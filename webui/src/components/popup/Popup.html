@@ -3,6 +3,10 @@
   <div class="question" v-if="data">
     <div class="title">{{ data.question_text }}</div>
     <div class="option"
+      :class="{ choice: choice === item.choice_id,
+      'show-answer': !sec,
+      bingo: item.is_right,
+      error: choice === item.choice_id && !item.is_right }"
       v-for="item in data.choices"
       @click="choose(item)">
       {{ item.choice_text }}
