@@ -106,6 +106,16 @@ Signup
 
     ]
 
+.. http:post:: /comments
+
+    :jsonparam string event: comment
+    :jsonparam string data: {}
+
+.. sourcecode:: http
+
+    HTTP/1.1 200 OK
+
+
 
 Question 推送消息
 ----------------------
@@ -124,3 +134,15 @@ Question 推送消息
                     }
                 ]
             }
+
+
+
+弹幕消息
+------------------------
+
+path /danmus/socket.io
+
+enter_room room_id = '88888'
+
+推送的消息类型为 RestApi 中的 event
+推送的内容为 data 对应的内容
