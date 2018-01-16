@@ -126,6 +126,8 @@ Question 推送消息
 
 **New Question Message**::
 
+            `question_update`
+
             {
                 "question_id":"1XX",
                 "question_text":"XXXXX",
@@ -140,8 +142,9 @@ Question 推送消息
 
 **New Vote Message**::
 
+         `user_vote`
+
             {
-                "event_name": "user_vote",
                 "user": {},
                 "vote":{}
             }
