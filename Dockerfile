@@ -39,7 +39,7 @@ WORKDIR /usr/src/app
 
 RUN sh /usr/src/app/api/api-doc/generate_doc.sh
 
-
+ENV API_URL '/api'
 
 RUN chmod +x /usr/src/app/supervisord.sh
 
