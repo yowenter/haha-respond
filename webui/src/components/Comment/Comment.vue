@@ -118,11 +118,15 @@ export default {
 
   .comment .name {
     color: #004179;
-    word-break: no-break;
+    word-break: keep-all;
   }
 
   .comment .message {
     color: #fff;
+    word-break: break-all;
+  }
+
+  .comment .tag {
     word-break: keep-all;
   }
 
