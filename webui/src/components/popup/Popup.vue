@@ -33,15 +33,26 @@ export default {
     countdown() {
       this.sec = 10;
       const id = setInterval(() => {
+        this.countdownAnimation(this.sec);
         if (this.sec !== 0) {
           this.sec = this.sec - 1;
         } else {
           clearInterval(id);
           setTimeout(() => {
-            this.hidePopup();
+            // this.hidePopup();
           }, 2000);
         }
       }, 1000);
+    },
+    // 倒计时动画
+    countdownAnimation(countdown) {
+      const circle = document.querySelectorAll('circle')[1];
+      const percent = (11 - countdown) / 10;
+      const perimeter = Math.PI * 2 * 35;
+      if (percent > 6 / 10) {
+        circle.setAttribute('stroke', 'rgb(255,135,135)');
+      }
+      circle.setAttribute('stroke-dasharray', `${perimeter * percent} ${perimeter * (1 - percent)}`);
     },
     // 点击选答案
     choose(item) {
@@ -69,8 +80,9 @@ export default {
       // 关闭题目时，刷新一下 rank 列表
       bus.$emit('user_vote');
     },
+
   },
 };
 </script>
 
-<style lang="scss" src="./Popup.scss"></style>
+<style lang="scss" src="./Popup.scss" scoped></style>

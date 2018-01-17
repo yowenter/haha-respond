@@ -1,14 +1,17 @@
 <van-popup v-model="show" :overlay="true" :close-on-click-overlay="false">
-  <div class="countdown">{{ sec }}</div>
+  <div class="countdown">
+    <svg width="80" height="80" viewbox="0 0 80 80">
+      <circle cx="40" cy="40" r="35" stroke-width="10" stroke="#fff" fill="none"></circle>
+      <circle cx="40" cy="40" r="35" stroke-width="10" stroke="rgb(77,171,247)" fill="none" transform="matrix(0,-1,1,0,0,80)" stroke-dasharray="0 300" stroke-linecap="round"></circle>
+    </svg>
+    <div class="sec">{{ sec }}</div>
+  </div>
   <div class="question" v-if="data">
     <div class="title">{{ data.question_text }}</div>
-    <div class="option"
-      :class="{ choice: choice === item.choice_id,
+    <div class="option" :class="{ choice: choice === item.choice_id,
       'show-answer': !sec,
       bingo: item.is_right,
-      error: choice === item.choice_id && !item.is_right }"
-      v-for="item in data.choices"
-      @click="choose(item)">
+      error: choice === item.choice_id && !item.is_right }" v-for="item in data.choices" @click="choose(item)">
       {{ item.choice_text }}
     </div>
   </div>
