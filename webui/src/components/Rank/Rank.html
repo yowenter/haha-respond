@@ -7,7 +7,7 @@
         boxShadow: topColors[index],
         type: index,
       })"></text-avatar>
-      <div :style="`color: ${topNameColors[index]};text-align: center;font-size: 20px;`">
+      <div :style="`color: ${topNameColors[index]};`" class="username">
         {{ (index + 1) + '. ' + rank.username }}<br/>
         <span style="font-size: 25px;">
           {{ rank.total_score }}

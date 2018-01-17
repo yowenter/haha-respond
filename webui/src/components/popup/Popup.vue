@@ -68,6 +68,8 @@ export default {
       this.startTime = null;
       this.endTime = null;
       this.choice = null;
+      // 关闭题目时，刷新一下 rank 列表
+      bus.$emit('user_vote');
     },
     // 点击动画
     /* eslint-disable */
