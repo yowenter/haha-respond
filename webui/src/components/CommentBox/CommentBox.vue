@@ -82,6 +82,15 @@ export default {
   margin-top: 10%;
   padding-bottom: 10px;
 }
+.comment-box .van-popup--top {
+  width: 80%;
+  border: 0;
+  border-radius: 4px;
+
+  .van-field {
+    border-radius: 4px;
+  }
+}
 .error {
   margin: 5px;
   color: red;
@@ -90,5 +99,6 @@ export default {
 .comment-box .sub-button {
   margin-top: 10px;
   float: right;
+  right: 15px;
 }
 </style>
