@@ -6,15 +6,23 @@
     <div class="qrcode-wrapper">
       <img class="qrcode" :src="qrcode">
     </div>
+
+    <comments></comments>
   </div>
 </template>
 
 <script>
+import '@/model/socket';
 import bg from '@/assets/bg.gif';
 import qrcode from '@/assets/qrcode.jpeg';
 
+import Comments from '@/components/Comments/Comments';
+
 export default {
   name: 'Index',
+  components: {
+    Comments,
+  },
   data() {
     return {
       bg,
