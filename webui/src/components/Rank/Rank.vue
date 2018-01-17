@@ -15,20 +15,27 @@ export default {
   data() {
     return {
       colors: [
-        '#FBA3ED',
-        '#F69876',
-        '#3FCF8F',
-        '#F5C169',
-        '#7A9ACF',
-        '#53C0CA',
-        '#85C486',
+        '#008bb9',
+        '#05A4D8',
+        '#1ED5F1',
+        '#0B77CA',
+      ],
+      colors2: [
+        '#da381b',
+        '#e86f3c',
+        '#f3b00f',
       ],
       topColors: [
-        'rgb(245,193,105)',
-        'rgb(170,170,170)',
-        'rgba(194,9,9,0.5)',
+        'rgba(218, 56, 27, 0.5)',
+        'rgba(232, 111, 60, 0.6)',
+        'rgba(243, 176, 15, 0.7)',
       ],
-      randomColorNumber: 7,
+      topNameColors: [
+        'rgb(218, 56, 27)',
+        'rgb(232, 111, 60)',
+        'rgb(243, 176, 15)',
+      ],
+      randomColorNumber: 4,
       ranks: [],
     };
   },
@@ -50,11 +57,13 @@ export default {
     },
   },
   methods: {
-    getIcon(username, index, otherData = {}) {
+    getIcon(username, index, isTop = false, otherData = {}) {
+      const colors = isTop ? this.colors2 : this.colors;
+      const randomColorNumber = isTop ? 3 : this.randomColorNumber;
       return {
         text: username.slice(0, 1),
         color: '#ffffff',
-        bg: this.colors[index % this.randomColorNumber],
+        bg: colors[index % randomColorNumber],
         ...otherData,
       };
     },
