@@ -64,5 +64,8 @@ html, body {
   margin-right: 10px;
   width: 200px;
   height: 200px;
+  border: 20px solid #fff;
+  border-radius: 40px;
+  -webkit-mask-image: -webkit-radial-gradient(#ffffff, #ffffff, rgba(255,255,255, 0.8), rgba(255,255,255, 0.5), transparent, transparent);
 }
 </style>

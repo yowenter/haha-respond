@@ -1,5 +1,5 @@
 <template>
-  <div class="comment" :style="transStyle" ref="comment">
+  <div :class="{comment: true, gold: isRoby(data)}" :style="transStyle" ref="comment">
       <span class="user">{{ data.user }}</span>
       <span class="message">{{ data.message }}</span>
     </div>
@@ -18,6 +18,7 @@ export default {
       startTime: 0,
       speed: 100,
       transStyle: '',
+      roby: 'roby.chen@daocloud.io',
     };
   },
   mounted() {
@@ -42,6 +43,12 @@ export default {
         this.$emit('end', this.data);
       }
     },
+    isRoby(data) {
+      if (data.email === this.roby) {
+        return true;
+      }
+      return false;
+    },
   },
 };
 </script>
@@ -49,18 +56,42 @@ export default {
 <style lang="scss">
 .comments .comment {
   display: inline-block;
-  background-color: #02e8f0;
-  border-radius: 100000px;
+  vertical-align: top;
+  background-color: #21282b;
+  border-radius: 4px;
+  opacity: 0.8;
 
   span {
     color: #fff;
     display: inline-block;
-    padding: 5px 10px;
+    padding: 5px 0px 5px 10px;
   }
 
   .user {
-    background-color: #074399;
-    border-radius: 1000000px;
+    font-weight: 200;
+    color: #e7edf9;
+    vertical-align: top;
+  }
+
+  .message {
+    color: #ffbb3e;
+    font-weight: 200;
+    padding-right: 10px;
+    padding-left: 5px;
+    vertical-align: top;
+  }
+  &.gold {
+    .user {
+      font-size: 24px;
+      color: gold;
+      word-break: keep-all;
+    }
+
+    .message {
+      font-size: 24px;
+      word-break: break-all;
+      max-width: 600px;
+    }
   }
 }
 </style>
