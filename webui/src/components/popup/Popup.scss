@@ -37,6 +37,7 @@
       flex-basis: 40px;
       flex-grow: 1;
       text-align: center;
+      border: 1px solid;
       border-radius: 100vh;
       transition: all .1s linear;
       .button__bg,
@@ -56,10 +57,8 @@
       }
       &.show-answer.bingo {
         color: #fff;
-        .button__bg {
-          border-color: #22c36a;
-          background-color: #22c36a;
-        }
+        border-color: #22c36a;
+        background-color: #22c36a;
       }
       &.show-answer.error {
         color: #fff;
