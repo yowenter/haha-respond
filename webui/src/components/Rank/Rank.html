@@ -1,13 +1,13 @@
 <div class="rank-list">
-  <h1>排行榜</h1>
+  <h1>排行榜 | Ranking</h1>
   <div class="rank-top">
     <div v-for="(rank, index) in topRanks" class="top-item">
-      <text-avatar class="icon" :data="getIcon(rank.username, index, {
+      <text-avatar class="icon" :data="getIcon(rank.username, index, true, {
         border: topColors[index],
         boxShadow: topColors[index],
         type: index,
       })"></text-avatar>
-      <div :style="`color: ${topColors[index]};text-align: center;font-size: 20px;`">
+      <div :style="`color: ${topNameColors[index]};text-align: center;font-size: 20px;`">
         {{ (index + 1) + '. ' + rank.username }}<br/>
         <span style="font-size: 25px;">
           {{ rank.total_score }}

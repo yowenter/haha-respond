@@ -3,6 +3,7 @@
   // min-height: 60%;
   padding: 0 20px 20px 20px;
   border-radius: 10px;
+  color: #555555;
   .countdown {
     position: absolute;
     left: 50%;
@@ -15,15 +16,18 @@
     border-radius: 50%;
     box-shadow: 0 0 3px #000;
     background-color: #fff;
+    font-size: 30px;
   }
   .question {
     display: flex;
     flex-direction: column;
     margin-top: 60px;
     height: calc(100% - 80px);
+    color: #606060;
     .title {
-      font-size: 1.2em;
+      font-size: 18px;
       word-break: break-all;
+      padding-bottom: 10px;
     }
     .option {
       display: flex;
@@ -41,12 +45,13 @@
       &.show-answer.error .button__bg {
         border-radius: 100vh;
         border: 1px solid;
+        border-color: #777777;
       }
       &.choice {
         color: #fff;
         .button__bg {
-          border-color: #3890ff;
-          background-color: #3890ff;
+          border-color: #05A4D8;
+          background-color: #05A4D8;
         }
       }
       &.show-answer.bingo {
@@ -57,10 +62,10 @@
         }
       }
       &.show-answer.error {
-        color: currentColor;
+        color: #fff;
         .button__bg {
           border-color: #f1483f;
-          background-color: #fff;
+          background-color: #f1483f;
         }
       }
     }

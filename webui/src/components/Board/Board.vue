@@ -21,6 +21,12 @@ export default {
   methods: {
 
   },
+  mounted() {
+    const user = localStorage.getItem('email');
+    if (!user) {
+      this.$router.push({ name: 'Register' });
+    }
+  },
 };
 </script>
 
