@@ -22,6 +22,10 @@ socket.on('question_update', data => {
 socket.on('disconnect', () => {
   console.log('disconnect');
 });
+socket.on('user_vote', () => {
+  console.log('user vote');
+  bus.$emit('user_vote');
+})
 
 let commentSocket;
 

@@ -5,6 +5,8 @@
 import { clone } from 'lodash';
 import api from '@/model/api';
 
+import { bus } from '@/model/const';
+
 import TextAvatar from '../text-avatar';
 
 export default {
@@ -40,10 +42,10 @@ export default {
     };
   },
   created() {
-    api.rank()
-      .then(res => {
-        this.ranks = res;
-      });
+    this.getRanks();
+    bus.$on('user_vote', () => {
+      this.getRanks();
+    })
   },
   computed: {
     sortedRanks() {
@@ -57,6 +59,12 @@ export default {
     },
   },
   methods: {
+    getRanks() {
+      api.rank()
+        .then(res => {
+          this.ranks = res;
+        });
+    },
     getIcon(username, index, isTop = false, otherData = {}) {
       const colors = isTop ? this.colors2 : this.colors;
       const randomColorNumber = isTop ? 3 : this.randomColorNumber;
