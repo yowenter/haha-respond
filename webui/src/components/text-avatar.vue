@@ -46,8 +46,8 @@ export default {
         text: '匿',
         color: '#ffffff',
         bg: '#3890ff',
-        boxShadow: 'rgba(0,0,0,0.2)',
-        border: 'rgba(0,0,0,0.3)',
+        boxShadow: 'rgb(180,180,180)',
+        border: 'rgb(180,180,180)',
         type: 'normal',
       },
     };
