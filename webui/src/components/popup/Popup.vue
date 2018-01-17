@@ -39,7 +39,7 @@ export default {
         } else {
           clearInterval(id);
           setTimeout(() => {
-            // this.hidePopup();
+            this.hidePopup();
           }, 2000);
         }
       }, 1000);
@@ -73,6 +73,8 @@ export default {
     },
     // 关闭 popup
     hidePopup() {
+      const circle = document.querySelectorAll('circle')[1];
+      circle.setAttribute('stroke', 'rgb(77,171,247)');
       this.show = false;
       this.startTime = null;
       this.endTime = null;
