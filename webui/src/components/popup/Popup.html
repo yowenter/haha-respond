@@ -4,7 +4,9 @@
       <circle cx="40" cy="40" r="35" stroke-width="10" stroke="#fff" fill="none"></circle>
       <circle cx="40" cy="40" r="35" stroke-width="10" stroke="rgb(77,171,247)" fill="none" transform="matrix(0,-1,1,0,0,80)" stroke-dasharray="0 300" stroke-linecap="round"></circle>
     </svg>
-    <div class="sec">{{ sec }}</div>
+    <div class="sec" v-show="sec">{{ sec }}</div>
+    <van-icon class="sec" name="fail" v-show="!sec && !isRight" style="color: rgb(252,196,25)" />
+    <van-icon class="sec" name="success"  v-show="!sec && isRight" style="color: rgb(81,207,102)"/>
   </div>
   <div class="question" v-if="data">
     <div class="title">{{ data.question_text }}</div>

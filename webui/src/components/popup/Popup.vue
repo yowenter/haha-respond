@@ -26,7 +26,14 @@ export default {
       this.show = true;
       this.countdown();
       this.startTime = (new Date).getTime(); // eslint-disable-line
+      this.rightId = data.choices.find(res => res.is_right).choice_id;
+      console.log('rightId', this.rightId);
     });
+  },
+  computed: {
+    isRight() {
+      return this.choice && this.rightId && this.rightId === this.choice;
+    },
   },
   methods: {
     // 倒计时
@@ -59,8 +66,8 @@ export default {
       if (this.choice || !this.sec) return;
       this.choice = item.choice_id;
       this.endTime = (new Date).getTime(); // eslint-disable-line
-      let score = 1 - ((this.endTime - this.startTime) / 10000);
-      score = item.is_right ? (score + 1) : score;
+      let score = 100 - ((this.endTime - this.startTime) / 100);
+      score = item.is_right ? score : 0;
       api.vote({
         email: localStorage.getItem('email'),
         examId: localStorage.getItem('exam_id'),
