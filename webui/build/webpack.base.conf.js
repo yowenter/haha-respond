@@ -49,7 +49,23 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')],
+        options: {
+          cacheDirectory: true,
+          presets: [
+            ['env', {
+              targets: {
+                browsers: [
+                  '> 1%',
+                  'last 2 versions',
+                  'not ie <= 8',
+                ],
+              },
+              modules: false,
+              useBuiltIns: 'usage',
+            }],
+          ],
+        },
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

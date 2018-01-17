@@ -11,7 +11,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0-beta.37",
     "axios": "^0.17.1",
+    "babel-runtime": "^6.26.0",
     "es6-promise": "^4.2.2",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
