@@ -81,7 +81,7 @@ export default {
   background: rgba(5, 164, 216, 0.6);
   z-index: 1000;
   -webkit-mask-image: -webkit-gradient(linear, 0% 0%, 0% 20%,from(transparent), to(#ffffff));
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
 .comment-list {

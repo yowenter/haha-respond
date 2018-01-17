@@ -45,7 +45,7 @@ export default {
     this.getRanks();
     bus.$on('user_vote', () => {
       this.getRanks();
-    })
+    });
   },
   computed: {
     sortedRanks() {

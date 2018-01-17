@@ -2,7 +2,7 @@
 
 <script>
 // 连接 websocket
-import '@/model/socket';
+import initSocket from '@/model/socket';
 
 import Rank from '../Rank/Rank';
 import Comment from '../Comment/Comment';
@@ -26,6 +26,8 @@ export default {
     if (!user) {
       this.$router.push({ name: 'Register' });
     }
+
+    initSocket();
   },
 };
 </script>
