@@ -10,8 +10,15 @@
       </div>
       <ul class="comment-list">
         <li v-for="message in messages" :key="message.time" class="comment">
-          <span class="name">{{ message.user }}</span><!--
-          --><span class="message">{{ message.message }}</span>
+          <template v-if="message.email !== roby">
+            <span class="name">{{ message.user }}</span><!--
+            --><span class="message">{{ message.message }}</span>
+          </template>
+          <template v-else>
+            <span class="tag roby">老板</span><!--
+            --><span class="name roby">{{ message.user }}</span><!--
+            --><span class="message roby">{{ message.message }}</span>
+          </template>
         </li>
       </ul>
     </div>
@@ -33,6 +40,7 @@ export default {
     return {
       messages: [],
       show: false,
+      roby: 'roby.chen@daocloud.io',
     };
   },
   mounted() {
@@ -110,11 +118,33 @@ export default {
 
   .comment .name {
     color: #004179;
+    word-break: no-break;
   }
 
   .comment .message {
     color: #fff;
-    word-break: break-all;
+    word-break: keep-all;
+  }
+
+  .comment .name.roby {
+    font-size: 24px;
+    line-height: 32px;
+    color: gold;
+  }
+
+  .comment .message.roby {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .comment .tag.roby {
+    color: #fff;
+    height: 20px;
+    font-size: 14px;
+    margin-top: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background: linear-gradient(90deg, gold, #f1e7b2);
   }
 }
 
