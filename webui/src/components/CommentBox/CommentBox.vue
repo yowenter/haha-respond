@@ -77,7 +77,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .van-popup.input-field {
   margin-top: 10%;
   padding-bottom: 10px;

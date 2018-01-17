@@ -34,7 +34,7 @@ const rank = () => {
       room,
     },
   }).then(res => res.data);
-}
+};
 
 export default {
   comment,
