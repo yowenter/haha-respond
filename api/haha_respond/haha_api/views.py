@@ -22,8 +22,20 @@ from haha_api.serializers import UserSerializer, ExamSerializer, VoteSerializer,
 import os
 import sys
 
+import threading
+
 
 # Create your views here.
+
+def run_async(func):
+    @wraps(func)
+    def inner(*args, **kwargs):
+        thread = threading.Thread(target=func, args=args, kwargs=kwargs)
+        thread.daemon = True
+        thread.start()
+
+    return inner
+
 
 def request_user_wrapper(func):
     @wraps(func)
@@ -187,10 +199,8 @@ def vote(request):
         }
 
     }
-    try:
-        push_event(event_data)
-    except Exception as e:
-        print "Vote push event error:", str(e)
+
+    run_async(push_event)(event_data)
 
     return Response(VoteSerializer(vote).data, status=status.HTTP_200_OK)
 
