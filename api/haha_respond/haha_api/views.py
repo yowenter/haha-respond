@@ -73,7 +73,7 @@ class VoteApiView(APIView):
 
 
 def push_event(data):
-    r = requests.post('http://localhost:3100/event', json=data)
+    r = requests.post('http://localhost:3100/event', json=data, timeout=1)
     r.raise_for_status()
 
 
