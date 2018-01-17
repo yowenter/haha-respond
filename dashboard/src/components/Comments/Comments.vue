@@ -29,7 +29,13 @@ export default {
     });
   },
   methods: {
-    destory(index) {
+    destory(co) {
+      let index = 0;
+      this.comments.forEach((c, i) => {
+        if (c.time === co.time && c.message === co.message && c.email === co.email) {
+          index = i;
+        }
+      });
       this.comments.splice(index, 1);
     },
   },

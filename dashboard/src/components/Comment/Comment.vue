@@ -39,7 +39,7 @@ export default {
       if (transformX > -this.divWidth) {
         requestAnimationFrame(this.setTransStyle);
       } else {
-        this.$emit('end', this.index);
+        this.$emit('end', this.data);
       }
     },
   },
