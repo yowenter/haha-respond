@@ -200,7 +200,7 @@ def vote(request):
 
     }
 
-    run_async(push_event)(event_data)
+    # run_async(push_event)(event_data)
 
     return Response(VoteSerializer(vote).data, status=status.HTTP_200_OK)
 
