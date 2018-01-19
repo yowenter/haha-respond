@@ -3,6 +3,7 @@
 <script>
 import { bus } from '@/model/const';
 import api from '@/model/api';
+import { Toast } from 'vant';
 
 export default {
   name: 'Popup',
@@ -14,6 +15,7 @@ export default {
       startTime: null,
       endTime: null,
       choice: null,
+      score: 0,
     };
   },
   created() {
@@ -46,6 +48,9 @@ export default {
         } else {
           clearInterval(id);
           setTimeout(() => {
+            if (this.score) {
+              Toast(`恭喜答对了，加 ${this.score} 分`);
+            }
             this.hidePopup();
           }, 2000);
         }
@@ -76,6 +81,7 @@ export default {
         questionId: this.data.question_id,
         score,
       }).then(res => {
+        this.score = score;
         console.log(res);
       });
     },
@@ -87,6 +93,7 @@ export default {
       this.startTime = null;
       this.endTime = null;
       this.choice = null;
+      this.score = 0;
       // 关闭题目时，刷新一下 rank 列表
       bus.$emit('user_vote');
     },
