@@ -23,8 +23,11 @@ export default {
   },
   mounted() {
     const user = localStorage.getItem('email');
+    const roomId = localStorage.getItem('room_id');
     if (!user) {
       this.$router.push({ name: 'Register' });
+    } else if (!roomId) {
+      this.$router.push({ name: 'Code' });
     }
 
     initSocket();
