@@ -61,6 +61,7 @@ export default {
   background-color: #21282b;
   border-radius: 4px;
   opacity: 0.8;
+  font-size: 35px;
 
   span {
     color: #fff;
@@ -82,14 +83,13 @@ export default {
     vertical-align: top;
   }
   &.gold {
+    font-size: 50px;
     .user {
-      font-size: 24px;
       color: gold;
       word-break: keep-all;
     }
 
     .message {
-      font-size: 24px;
       word-break: break-all;
       max-width: 600px;
     }
