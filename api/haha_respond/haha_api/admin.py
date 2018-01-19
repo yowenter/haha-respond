@@ -55,7 +55,7 @@ class ExamAdmin(admin.ModelAdmin):
         if change:
             if obj.current_question_id:
                 try:
-                    publish_question('question_update', obj.current_question_id, obj.room_id)
+                    publish_question('question_update', obj.current_question_id, obj.room_id, obj.current_question_id==obj.lastquestion_id)
                 except Exception as e:
                     error = e
 

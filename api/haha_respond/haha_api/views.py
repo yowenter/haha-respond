@@ -77,11 +77,12 @@ def push_event(data):
     r.raise_for_status()
 
 
-def publish_question(event, question_id, room_id):
+def publish_question(event, question_id, room_id, is_last_question=False):
     data = dict()
     data['event'] = event
     question = QuestionSerializer(Question.objects.filter(pk=question_id).first()).data
     choices = [ChoiceSerializer(c).data for c in Choice.objects.filter(question=question_id).all()]
+    question['is_last_question'] = is_last_question
 
     question['choices'] = choices
     data['data'] = question
