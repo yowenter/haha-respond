@@ -14,7 +14,7 @@
 <script>
 import '@/model/socket';
 import bg from '@/assets/bg.gif';
-import qrcode from '@/assets/qrcode.jpeg';
+import qrcode from '@/assets/qrcode.png';
 
 import Comments from '@/components/Comments/Comments';
 
@@ -66,6 +66,7 @@ html, body {
   height: 200px;
   border: 20px solid #fff;
   border-radius: 40px;
-  -webkit-mask-image: -webkit-radial-gradient(#ffffff, #ffffff, rgba(255,255,255, 0.8), rgba(255,255,255, 0.5), transparent, transparent);
+  -webkit-mask-image: -webkit-radial-gradient(#ffffff, #ffffff,
+    rgba(255,255,255, 0.8), rgba(255,255,255, 0.5), transparent, transparent);
 }
 </style>

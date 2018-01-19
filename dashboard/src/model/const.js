@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 
 // API_URL
-const defaultUrl = 'http://47.98.33.15:80';
+const defaultUrl = 'http://haha-static.daocom.io';
 let currentUrl = defaultUrl;
 if (process.env.API_URL) {
   currentUrl = process.env.API_URL;
