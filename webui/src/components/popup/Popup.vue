@@ -66,8 +66,9 @@ export default {
       if (this.choice || !this.sec) return;
       this.choice = item.choice_id;
       this.endTime = (new Date).getTime(); // eslint-disable-line
-      let score = 100 - ((this.endTime - this.startTime) / 100);
-      score = item.is_right ? score : 0;
+      const total = item.is_last_question ? 200 : 100; // 最后一题分数 double
+      let score = ((this.endTime - this.startTime) * total) / 10000;
+      score = item.is_right ? score.toFixed() : 0;
       api.vote({
         email: localStorage.getItem('email'),
         examId: localStorage.getItem('exam_id'),
