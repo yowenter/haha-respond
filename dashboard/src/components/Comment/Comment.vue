@@ -57,6 +57,7 @@ export default {
 .comments .comment {
   display: inline-block;
   vertical-align: top;
+  position: absolute;
   background-color: #21282b;
   border-radius: 4px;
   opacity: 0.8;
