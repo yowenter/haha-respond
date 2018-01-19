@@ -42,6 +42,8 @@ class Exam(models.Model):
     name = models.CharField(max_length=64)
     room_id = models.CharField(max_length=64, default=_generate_random_room, db_index=True)
     current_question_id = models.CharField(max_length=64, blank=True)
+    last_question_id = models.CharField(max_length=64, blank=True)
+
 
     pub_date = models.DateTimeField()
     # state can be one of ["draft", "live", "closed"]
